@@ -57,11 +57,11 @@ def gen_graph_comet_kite(nodes:int):
 
 def gen_graph_circular_chain(nodes:int):
     # return nx.circular_chain_graph(nodes) # <-- Using the networkx generator
-    graph = nx.DiGraph()
-    start_node = nodes[]
-    graph.add_edges_from(start_node)
-    print(graph)
-
+    # graph = nx.DiGraph()
+    # start_node = nodes[]
+    # graph.add_edges_from(start_node)
+    # print(graph)
+    pass
 
 def gen_graph_linear_chain(nodes:int):
     # return nx.linear_chain_graph(nodes) # <-- Using the networkx generator
@@ -72,24 +72,17 @@ def gen_graph_linear_chain(nodes:int):
     return graph
 
 
-def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float):
+def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float, seed:int):
     # return nx.random_graph(nodes) # <-- Using the networkx generator
-    n = int(input("input the number of nodes:"))
-    edge_prob = float(input("input the edge building probability as a float:"))
-    graph = nx.erdos_renyi_graph(nodes, edge_prob)
+    graph = nx.erdos_renyi_graph(nodes, edge_prob, seed)
     print(graph.nodes)
     print(graph.edges)
-    pass
-
-
-def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:float):
-    # return nx.complete_graph(nodes) # <-- Using the networkx generator
-    n = int(input("input the number of nodes:"))
-    m = int(input("input the number of edges to attach from a new node to existing nodes"))
-    seed = int(input("input randomness as integer"))
-    graph = nx.barabasi_albert_graph(n,m,seed)
     return graph
-    pass
+
+def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:int):
+    # return nx.complete_graph(nodes) # <-- Using the networkx generator
+    graph = nx.barabasi_albert_graph(nodes,edges, seed)
+    return graph
 
 def main():
     parser = argparse.ArgumentParser(
@@ -99,12 +92,15 @@ def main():
         "--type",
         type = str,
         default = "well-mixed",
-        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random"],
+        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi"],
         help = "Type of graph to generate"
     )
     parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
     parser.add_argument("--height", type = int, default = 3, help = "Height of graph (for graph types where relevant)")
     parser.add_argument("--width", type = int, default = 3, help = "Width of the graph (for graph types where relevant)")
+    parser.add_argument("--seed", type = int, default = 1, help = "Seed info")
+    parser.add_argument("--edges", type = int, default =10, help = "Number of edges")
+    parser.add_argument("--edge_probabilty", type = float, default = 0.5, help = "Edge creation probability")
 
     args = parser.parse_args()
     graph_type = args.type
@@ -128,8 +124,8 @@ def main():
     elif graph_type == "linear-chain":
         graph = gen_graph_linear_chain(nodes = graph_nodes)
         print(graph)
-    elif graph_type == "random":
-        graph = gen_graph_random_blah(nodes = graph_nodes)
+    elif graph_type == "random-barabasi-albert":
+        graph = gen_graph_random_barabasi_albert(nodes = graph_nodes, edges = args.edges, seed = args.seed )
         print(graph)
     # if graph_type == "random":
     #     graph = gen_graph_random_blah2(nodes = graph_nodes)
