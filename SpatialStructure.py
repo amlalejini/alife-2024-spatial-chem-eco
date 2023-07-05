@@ -22,10 +22,30 @@ def gen_graph_well_mixed(nodes:int):
     return graph
     pass
 
-def gen_graph_toroidal_lattice(nodes:int,rows:int,cols:int):
+def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
     # return nx.toroidal_lattice_graph(nodes) # <-- Using the networkx generator
     graph = nx.Graph()
-    graph.add_nodes_from((i, j) for i in range(nodes) for j in range(nodes))
+    # Create grid to use to figure out edges
+    grid = [[None for c in range(graph_width)] for r in range(graph_height)]
+    # Assign vertex ids to each position in grid
+    id = 0
+    for r in range(graph_height):
+        for c in range(graph_width):
+            grid[r][c] = id
+            graph.add_node(id)
+            id += 1
+    # Compute edges
+    for r in range(graph_height):
+        for c in range(graph_width):
+            id = grid[r][c]
+            up = grid[r-1][c]
+            down = grid[(r+1)%graph_height][c]
+            right = grid[r][(c+1)%graph_width]
+            left = grid[r][c-1]
+            graph.add_edge(id, up)
+            graph.add_edge(id, down)
+            graph.add_edge(id, right)
+            graph.add_edge(id, left)
     return graph
 
 def gen_graph_comet_kite(nodes:int):
@@ -75,37 +95,45 @@ def main():
     parser = argparse.ArgumentParser(
         usage="Program for generating graphs"
     )
-    parser.add_argument("--type", type = str, default = "circular chain", choices = ["well-mixed", "toroidal lattice", "comet-kite", "circular chain", "linear chain", "barabasi-albert random", "erdos-renyi random"], help = "Type of graph to generate")
+    parser.add_argument(
+        "--type",
+        type = str,
+        default = "well-mixed",
+        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random"],
+        help = "Type of graph to generate"
+    )
     parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
-    parser.add_argument("--rows", type = int, default = 10, help = "Number of rows in graph")
-    parser.add_argument("--cols", type=int, default=10, help="Number of columns in graph")
+    parser.add_argument("--height", type = int, default = 3, help = "Height of graph (for graph types where relevant)")
+    parser.add_argument("--width", type = int, default = 3, help = "Width of the graph (for graph types where relevant)")
 
     args = parser.parse_args()
     graph_type = args.type
     graph_nodes = args.nodes
+    graph_width = args.width
+    graph_height = args.height
 
     graph = None
     if graph_type == "well-mixed":
         graph = gen_graph_well_mixed(nodes = graph_nodes)
         print(graph)
-    elif graph_type == "toroidal lattice":
-        graph = gen_graph_toroidal_lattice(nodes = graph_nodes, rows=10, cols=10)
+    elif graph_type == "toroidal-lattice":
+        graph = gen_graph_toroidal_lattice(graph_width=graph_width, graph_height=graph_height)
         print(graph)
     elif graph_type == "comet-kite":
         graph = gen_graph_comet_kite(nodes = graph_nodes)
         print(graph)
-    elif graph_type == "circular chain":
+    elif graph_type == "circular-chain":
         graph = gen_graph_circular_chain(nodes = graph_nodes)
         print(graph)
-    elif graph_type == "linear chain":
+    elif graph_type == "linear-chain":
         graph = gen_graph_linear_chain(nodes = graph_nodes)
         print(graph)
-    elif graph_type == "barabasi-albert random":
-        graph = gen_graph_random_barabasi_albert(nodes = graph_nodes, edges=5, seed=0.5)
+    elif graph_type == "random":
+        graph = gen_graph_random_blah(nodes = graph_nodes)
         print(graph)
-    elif graph_type == "erdos-renyi random":
-        graph = gen_graph_random_erdos_renyi(nodes = graph_nodes, edge_prob=float)
-        print(graph)
+    # if graph_type == "random":
+    #     graph = gen_graph_random_blah2(nodes = graph_nodes)
+    #     print(graph)
     else:
         print("Unrecognized graph type!")
         exit(-1)
