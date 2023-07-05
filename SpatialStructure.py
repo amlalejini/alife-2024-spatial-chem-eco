@@ -22,14 +22,30 @@ def gen_graph_well_mixed(nodes:int):
     graph.add_edges_from([(j, i) for i in range(nodes) for j in range(i) if i != j])
     return graph
 
-def gen_graph_toroidal_lattice():
+def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
     # return nx.toroidal_lattice_graph(nodes) # <-- Using the networkx generator
     graph = nx.Graph()
-    row_name, rows = m
-    col_name, cols = n
-    graph.add_nodes_from((i, j) for i in rows for j in cols)
-    graph.add_edges_from(((i, j), (pi, j)) for pi, i in pairwise(rows) for j in cols)
-    graph.add_edges_from(((i, j), (i, pj)) for i in rows for pj, j in pairwise(cols))
+    # Create grid to use to figure out edges
+    grid = [[None for c in range(graph_width)] for r in range(graph_height)]
+    # Assign vertex ids to each position in grid
+    id = 0
+    for r in range(graph_height):
+        for c in range(graph_width):
+            grid[r][c] = id
+            graph.add_node(id)
+            id += 1
+    # Compute edges
+    for r in range(graph_height):
+        for c in range(graph_width):
+            id = grid[r][c]
+            up = grid[r-1][c]
+            down = grid[(r+1)%graph_height][c]
+            right = grid[r][(c+1)%graph_width]
+            left = grid[r][c-1]
+            graph.add_edge(id, up)
+            graph.add_edge(id, down)
+            graph.add_edge(id, right)
+            graph.add_edge(id, left)
     return graph
 
 def gen_graph_comet_kite():
@@ -71,35 +87,45 @@ def main():
     parser = argparse.ArgumentParser(
         usage="Program for generating graphs"
     )
-    parser.add_argument("--type", type = str, default = "well-mixed", choices = ["well-mixed", "toroidal lattice", "comet-kite", "circular chain", "linear chain", "random"], help = "Type of graph to generate")
+    parser.add_argument(
+        "--type",
+        type = str,
+        default = "well-mixed",
+        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random"],
+        help = "Type of graph to generate"
+    )
     parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
+    parser.add_argument("--height", type = int, default = 3, help = "Height of graph (for graph types where relevant)")
+    parser.add_argument("--width", type = int, default = 3, help = "Width of the graph (for graph types where relevant)")
 
     args = parser.parse_args()
     graph_type = args.type
     graph_nodes = args.nodes
+    graph_width = args.width
+    graph_height = args.height
 
     graph = None
     if graph_type == "well-mixed":
         graph = gen_graph_well_mixed(nodes = graph_nodes)
         print(graph)
-    if graph_type == "toroidal lattice":
-        graph = gen_graph_toroidal_lattice(nodes = graph_nodes)
+    elif graph_type == "toroidal-lattice":
+        graph = gen_graph_toroidal_lattice(graph_width=graph_width, graph_height=graph_height)
         print(graph)
-    if graph_type == "comet-kite:
+    elif graph_type == "comet-kite":
         graph = gen_graph_comet_kite(nodes = graph_nodes)
         print(graph)
-    if graph_type == "circular chain":
+    elif graph_type == "circular-chain":
         graph = gen_graph_circular_chain(nodes = graph_nodes)
         print(graph)
-    if graph_type == "linear chain":
+    elif graph_type == "linear-chain":
         graph = gen_graph_linear_chain(nodes = graph_nodes)
         print(graph)
-    if graph_type == "random":
+    elif graph_type == "random":
         graph = gen_graph_random_blah(nodes = graph_nodes)
         print(graph)
-    if graph_type == "random":
-        graph = gen_graph_random_blah2(nodes = graph_nodes)
-        print(graph)
+    # if graph_type == "random":
+    #     graph = gen_graph_random_blah2(nodes = graph_nodes)
+    #     print(graph)
     else:
         print("Unrecognized graph type!")
         exit(-1)
