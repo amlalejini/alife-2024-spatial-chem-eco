@@ -59,7 +59,6 @@ def gen_graph_comet_kite(nodes:int, tails:int):
             graph.add_edges_from()
     return graph
 
-# Possible bug: not returning anything
 def gen_graph_circular_chain(nodes:int):
     # return nx.circular_chain_graph(nodes) # <-- Using the networkx generator
     graph = nx.path_graph(nodes)
@@ -131,7 +130,7 @@ def main():
         graph = gen_graph_random_barabasi_albert(nodes = graph_nodes, edges = args.edges, seed = args.seed )
         print(graph)
     elif graph_type == "random-erdos-renyi":
-        graph = gen_graph_random_erdos-renyi(nodes = graph_nodes, edge_prob = args.edge_prob, seed = args.seed)
+        graph = gen_graph_random_erdos_renyi(nodes = graph_nodes, edge_prob = args.edge_prob, seed = args.seed)
         print(graph)
     else:
         print("Unrecognized graph type!")
