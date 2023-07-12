@@ -47,6 +47,7 @@ def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
             graph.add_edge(id, left)
     return graph
 
+# Pseudo code at the momentd
 def gen_graph_comet_kite(nodes:int, tails:int):
     # return nx.comet_kite_graph(nodes) # <-- Using the networkx generator
     graph = nx.complete_graph(nodes)
@@ -58,6 +59,7 @@ def gen_graph_comet_kite(nodes:int, tails:int):
             graph.add_edges_from()
     return graph
 
+# Possible bug: not returning anything
 def gen_graph_circular_chain(nodes:int):
     # return nx.circular_chain_graph(nodes) # <-- Using the networkx generator
     graph = nx.path_graph(nodes)
@@ -66,9 +68,8 @@ def gen_graph_circular_chain(nodes:int):
     return graph
 
 def gen_graph_linear_chain(nodes:int):
-    # return nx.linear_chain_graph(nodes) # <-- Using the networkx generator
-    graph = nx.Graph(nodes)
-    # graph.add_nodes_from([i for i in range(nodes)])
+    graph = nx.Graph()
+    graph.add_nodes_from([i for i in range(nodes)])
     graph.add_edges_from([(i,i + 1) for i in range(nodes-1)])
     return graph
 
