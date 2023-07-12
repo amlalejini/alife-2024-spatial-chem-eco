@@ -20,7 +20,6 @@ def gen_graph_well_mixed(nodes:int):
     graph.add_nodes_from([i for i in range(nodes)])
     graph.add_edges_from([(j, i) for i in range(nodes) for j in range(i) if i != j])
     return graph
-    pass
 
 def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
     # return nx.toroidal_lattice_graph(nodes) # <-- Using the networkx generator
@@ -48,29 +47,30 @@ def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
             graph.add_edge(id, left)
     return graph
 
-def gen_graph_comet_kite(nodes:int):
+def gen_graph_comet_kite(nodes:int, tails:int):
     # return nx.comet_kite_graph(nodes) # <-- Using the networkx generator
     graph = nx.complete_graph(nodes)
-    # graph.add_nodes_from([i for i in range(nodes)])
-    # graph.add_edges_from([(j, i) for i in range(nodes) for j in range(i) if i != j])
+    for i in range(nodes):
+        graph.add_nodes_from()
+        graph.add_edges_from()
+        for i in range(tails):
+            graph.add_nodes_from()
+            graph.add_edges_from()
     return graph
 
 def gen_graph_circular_chain(nodes:int):
     # return nx.circular_chain_graph(nodes) # <-- Using the networkx generator
-    # graph = nx.DiGraph()
-    # start_node = nodes[]
-    # graph.add_edges_from(start_node)
-    # print(graph)
-    pass
+    graph = nx.path_graph(nodes)
+    if nodes > 1:
+        graph.add_edge(nodes - 1, 0)
+    return graph
 
 def gen_graph_linear_chain(nodes:int):
     # return nx.linear_chain_graph(nodes) # <-- Using the networkx generator
-    graph = nx.Graph()
-    graph.add_edges_from([(i, i + 1) for i in range(nodes - 1)])
-    graph.add_edges_from([(i, i + 1) for i in range(nodes, 2 * nodes - 1)])
-    graph.add_edges_from([(i, i + nodes) for i in range(nodes)])
+    graph = nx.Graph(nodes)
+    # graph.add_nodes_from([i for i in range(nodes)])
+    graph.add_edges_from([(i,i + 1) for i in range(nodes-1)])
     return graph
-
 
 def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float, seed:int):
     # return nx.random_graph(nodes) # <-- Using the networkx generator
@@ -96,6 +96,7 @@ def main():
         help = "Type of graph to generate"
     )
     parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
+    parser.add_argument("--tails", type = int, default = 2, help = "Number of tails conneted to graph")
     parser.add_argument("--height", type = int, default = 3, help = "Height of graph (for graph types where relevant)")
     parser.add_argument("--width", type = int, default = 3, help = "Width of the graph (for graph types where relevant)")
     parser.add_argument("--seed", type = int, default = 1, help = "Seed info")
@@ -105,6 +106,7 @@ def main():
     args = parser.parse_args()
     graph_type = args.type
     graph_nodes = args.nodes
+    graph_tails = args.tails
     graph_width = args.width
     graph_height = args.height
 
@@ -127,13 +129,12 @@ def main():
     elif graph_type == "random-barabasi-albert":
         graph = gen_graph_random_barabasi_albert(nodes = graph_nodes, edges = args.edges, seed = args.seed )
         print(graph)
-    # if graph_type == "random":
-    #     graph = gen_graph_random_blah2(nodes = graph_nodes)
-    #     print(graph)
+    elif graph_type == "random-erdos-renyi":
+        graph = gen_graph_random_erdos-renyi(nodes = graph_nodes, edge_prob = args.edge_prob, seed = args.seed)
+        print(graph)
     else:
         print("Unrecognized graph type!")
         exit(-1)
-
 
 if __name__ == '__main__':
     main()
