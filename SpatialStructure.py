@@ -107,6 +107,38 @@ def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:int):
     graph = nx.barabasi_albert_graph(nodes,edges, seed)
     return graph
 
+def write_to_edges_csv(fname:str, graph:nx.Graph):
+    file_content = "" # Will contain output to write to file
+    lines = []        # Will be a list of csv rows to write to file
+
+    # We need to track which nodes are represented in the edge list.
+    # It is possible that there are nodes with no connections that we'll
+    # need to add to the end of the file.
+    nodes_represented = set()
+
+    # Loop over edges in graph, creating the line that will be added to the file
+    for edge in graph.edges:
+        from_node = edge[0]
+        to_node = edge[1]
+        lines.append(f"{from_node},{to_node}")
+        # Make note of which nodes we've encountered
+        nodes_represented.add(from_node)
+        nodes_represented.add(to_node)
+
+    # Any nodes not encountered by looping over edges (i.e., nodes that have no edges),
+    # we need to add as lines to the file indicating that it is a part of the graph
+    for node in graph.nodes:
+        if not node in nodes_represented:
+            lines.append(f"{node},NONE")
+
+    # Combine lines with header information to create file content
+    header = "from,to"
+    file_content += header + "\n"
+    file_content += "\n".join(lines)
+    # Write file content to file
+    with open(fname, "w") as fp:
+        fp.write(file_content)
+
 def main():
     parser = argparse.ArgumentParser(
         usage="Program for generating graphs"
@@ -126,6 +158,7 @@ def main():
     parser.add_argument("--seed", type = int, default = 1, help = "Seed info")
     parser.add_argument("--edges", type = int, default =10, help = "Number of edges")
     parser.add_argument("--edge_probabilty", type = float, default = 0.5, help = "Edge creation probability")
+    parser.add_argument("--output", type = str, default = "edges.csv", help = "Name of output file")
 
     args = parser.parse_args()
     graph_type = args.type
@@ -165,6 +198,8 @@ def main():
     else:
         print("Unrecognized graph type!")
         exit(-1)
+
+    write_to_edges_csv(args.output, graph)
 
 if __name__ == '__main__':
     main()
