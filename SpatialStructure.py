@@ -107,7 +107,8 @@ def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:int):
     graph = nx.barabasi_albert_graph(nodes,edges, seed)
     return graph
 
-def write_to_edges_csv(fname:str, graph:nx.Graph):
+# fname: name out output file
+def write_undirected_graph_to_edges_csv(fname:str, graph:nx.Graph):
     file_content = "" # Will contain output to write to file
     lines = []        # Will be a list of csv rows to write to file
 
@@ -120,7 +121,11 @@ def write_to_edges_csv(fname:str, graph:nx.Graph):
     for edge in graph.edges:
         from_node = edge[0]
         to_node = edge[1]
+        # Add from --> to
         lines.append(f"{from_node},{to_node}")
+        # Add to --> from (because this is an undirected graph;
+        #  if this were a directed graph, would not want this line of code)
+        lines.append(f"{to_node},{from_node}")
         # Make note of which nodes we've encountered
         nodes_represented.add(from_node)
         nodes_represented.add(to_node)
@@ -199,7 +204,7 @@ def main():
         print("Unrecognized graph type!")
         exit(-1)
 
-    write_to_edges_csv(args.output, graph)
+    write_undirected_graph_to_edges_csv(args.output, graph)
 
 if __name__ == '__main__':
     main()
