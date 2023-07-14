@@ -170,7 +170,7 @@ def gen_graph_random_waxman(nodes:int, beta:float, alpha:int, seed:int):
     Returns:
         The a random graph structure based on the parameters of 
     """
-    graph = nx.waxman_graph(nodes, beta, alpha, seed):
+    graph = nx.waxman_graph(nodes, graph_beta, graph_alpha, seed)
     return graph
 
 def main():
@@ -202,8 +202,8 @@ def main():
     graph_additional_tail_nodes = args.additional_tail_nodes
     graph_width = args.width
     graph_height = args.height
-    graph_beta = args.beta
     graph_alpha = args.alpha
+    graph_beta = args.beta
     graph_seed = args.seed
 
     graph = None
@@ -234,7 +234,7 @@ def main():
         graph = gen_graph_random_erdos_renyi(nodes = graph_nodes, edge_prob = args.edge_prob, seed = args.seed)
         print(graph)
     elif graph_type == "random-waxman":
-        graph = gen_graph_random_waxman(nodes = graph_nodes, beta = args.graph_beta, alpha = args.graph_alpha, seed = args.seed)
+        graph = gen_graph_random_waxman(nodes = graph_nodes, beta = args.graph_beta, alpha = graph_alpha, seed = seed)
         print(graph)
     else:
         print("Unrecognized graph type!")
