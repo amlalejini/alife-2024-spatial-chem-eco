@@ -16,14 +16,28 @@ import random
 import networkx as nx
 
 def gen_graph_well_mixed(nodes:int):
-    # return nx.complete_graph(nodes) # <-- Using the networkx generator
+    """
+    Function generates a well-mixed graph where all nodes are connected by edges.
+    Attributes:
+        nodes(int): Indicates the number of nodes input by user. 
+    Returns:
+        The well-mixed graph based on the number of nodes and edges connecting the nodes. 
+    """
+    #Generates an empty graph. 
     graph = nx.Graph()
     graph.add_nodes_from([i for i in range(nodes)])
     graph.add_edges_from([(j, i) for i in range(nodes) for j in range(i) if i != j])
     return graph
 
 def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
-    # return nx.toroidal_lattice_graph(nodes) # <-- Using the networkx generator
+    """
+    Function generates a toroidal lattice graph. 
+    Attributes:
+        graph_width(int): Indicates the width of the lattice domain. 
+        graph_height(int): Indicates the height of the lattice domain.
+    Returns:
+        The toroidal graph based number of nodes and edges. 
+    """
     graph = nx.Graph()
     # Create grid to use to figure out edges
     grid = [[None for c in range(graph_width)] for r in range(graph_height)]
@@ -55,7 +69,16 @@ def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
 # - Add random number seed, set random number seed
 # - Write out the behavior of this function as a comment
 def gen_graph_comet_kite(core_size:int, num_tails:int, additional_tail_nodes:int = 0, seed:int = 1):
-    # return nx.comet_kite_graph(nodes) # <-- Using the networkx generator
+    """
+    Function generates a comet-kite graph. 
+    Attributes:
+        core_size(int): The number of nodes that make up the comet 'core' structure.
+        num_tails(int): The number of tails that connect to the comet 'core' structure. 
+        additional_tail_nodes(int): The randomly assigned node connections that are added to the length of a comet tail. 
+        seed(int): 
+    Returns:
+        The comet-kite graph based on the number of nodes and edges. 
+    """
     random.seed(seed)
     # 1) Generate complete graph
     graph = nx.complete_graph(core_size)
@@ -83,28 +106,71 @@ def gen_graph_comet_kite(core_size:int, num_tails:int, additional_tail_nodes:int
     return graph
 
 def gen_graph_circular_chain(nodes:int):
-    # return nx.circular_chain_graph(nodes) # <-- Using the networkx generator
+    """
+    Function generates a cyclic graph. 
+    Attributes:
+        nodes(int): The indicated number of nodes within the cyclic graph. 
+    Returns:
+        The cyclic graph based number of nodes and edges. 
+    """
     graph = nx.path_graph(nodes)
     if nodes > 1:
         graph.add_edge(nodes - 1, 0)
     return graph
 
 def gen_graph_linear_chain(nodes:int):
+    """
+    Function generates a linear chain or path graph. 
+    Attributes:
+        nodes(int): The indicated number of nodes in the linear chain graph. 
+    Returns:
+        The linear chain based number of nodes and edges. 
+    """
     graph = nx.Graph()
     graph.add_nodes_from([i for i in range(nodes)])
     graph.add_edges_from([(i,i + 1) for i in range(nodes-1)])
     return graph
 
 def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float, seed:int):
-    # return nx.random_graph(nodes) # <-- Using the networkx generator
+    """
+    Function that generates a random graph structure.  
+    Attributes:
+        nodes(int): The indicated number of nodes that in the random structure. 
+        edge_prob(float): Represents the probability an edge will be created between nodes. 
+        seed(int): 
+    Returns:
+        
+    """
     graph = nx.erdos_renyi_graph(nodes, edge_prob, seed)
     print(graph.nodes)
     print(graph.edges)
     return graph
 
 def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:int):
-    # return nx.complete_graph(nodes) # <-- Using the networkx generator
+    """
+    Function generates a random graph structure.  
+    Attributes:
+        nodes(int): The indicated number of nodes that will make up the random graph structure. 
+        edges(int): The indicated number of edges that will connect a new node to an existing node. 
+        seed(int):
+    Returns:
+        
+    """
     graph = nx.barabasi_albert_graph(nodes,edges, seed)
+    return graph
+
+def gen_graph_random_waxman(nodes:int, beta:float, alpha:int, seed:int):
+    """
+    Function generates a random graph structure.  
+    Attributes:
+        nodes(int): The indicated number of nodes included in the random graph structure.
+        beta(int):
+        alpha(int):
+        seed():
+    Returns:
+        The a random graph structure based on the parameters of 
+    """
+    graph = nx.waxman_graph(nodes, beta, alpha, seed):
     return graph
 
 def main():
@@ -115,7 +181,7 @@ def main():
         "--type",
         type = str,
         default = "well-mixed",
-        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi"],
+        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman"],
         help = "Type of graph to generate"
     )
     parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
@@ -126,6 +192,8 @@ def main():
     parser.add_argument("--seed", type = int, default = 1, help = "Seed info")
     parser.add_argument("--edges", type = int, default =10, help = "Number of edges")
     parser.add_argument("--edge_probabilty", type = float, default = 0.5, help = "Edge creation probability")
+    parser.add_argument("--beta", type = float, default = 0.1, help = "Model parameter for random waxman graph generator")
+    parser.add_argument("--alpha", type = float, default = 0.4, help = "Model parameter for random waxman graph generator")
 
     args = parser.parse_args()
     graph_type = args.type
@@ -134,6 +202,9 @@ def main():
     graph_additional_tail_nodes = args.additional_tail_nodes
     graph_width = args.width
     graph_height = args.height
+    graph_beta = args.beta
+    graph_alpha = args.alpha
+    graph_seed = args.seed
 
     graph = None
     if graph_type == "well-mixed":
@@ -161,6 +232,9 @@ def main():
         print(graph)
     elif graph_type == "random-erdos-renyi":
         graph = gen_graph_random_erdos_renyi(nodes = graph_nodes, edge_prob = args.edge_prob, seed = args.seed)
+        print(graph)
+    elif graph_type == "random-waxman":
+        graph = gen_graph_random_waxman(nodes = graph_nodes, beta = args.graph_beta, alpha = args.graph_alpha, seed = args.seed)
         print(graph)
     else:
         print("Unrecognized graph type!")
