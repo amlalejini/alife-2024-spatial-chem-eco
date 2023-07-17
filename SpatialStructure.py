@@ -20,11 +20,11 @@ def gen_graph_well_mixed(nodes:int):
     """
     Function generates a well-mixed graph where all nodes are connected by edges.
     Attributes:
-        nodes(int): Indicates the number of nodes input by user. 
+        nodes(int): Indicates the number of nodes input by user.
     Returns:
-        The well-mixed graph based on the number of nodes and edges connecting the nodes. 
+        The well-mixed graph based on the number of nodes and edges connecting the nodes.
     """
-    #Generates an empty graph. 
+    #Generates an empty graph.
     graph = nx.Graph()
     graph.add_nodes_from([i for i in range(nodes)])
     graph.add_edges_from([(j, i) for i in range(nodes) for j in range(i) if i != j])
@@ -32,12 +32,12 @@ def gen_graph_well_mixed(nodes:int):
 
 def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
     """
-    Function generates a toroidal lattice graph. 
+    Function generates a toroidal lattice graph.
     Attributes:
-        graph_width(int): Indicates the width of the lattice domain. 
+        graph_width(int): Indicates the width of the lattice domain.
         graph_height(int): Indicates the height of the lattice domain.
     Returns:
-        The toroidal graph based number of nodes and edges. 
+        The toroidal graph based number of nodes and edges.
     """
     graph = nx.Graph()
     # Create grid to use to figure out edges
@@ -71,14 +71,14 @@ def gen_graph_toroidal_lattice(graph_width:int, graph_height:int):
 # - Write out the behavior of this function as a comment
 def gen_graph_comet_kite(core_size:int, num_tails:int, additional_tail_nodes:int = 0, seed:int = 1):
     """
-    Function generates a comet-kite graph. 
+    Function generates a comet-kite graph.
     Attributes:
         core_size(int): The number of nodes that make up the comet 'core' structure.
-        num_tails(int): The number of tails that connect to the comet 'core' structure. 
-        additional_tail_nodes(int): The randomly assigned node connections that are added to the length of a comet tail. 
+        num_tails(int): The number of tails that connect to the comet 'core' structure.
+        additional_tail_nodes(int): The randomly assigned node connections that are added to the length of a comet tail.
         seed(int): Integer value used to intialize a pseudorandom generator.
     Returns:
-        The comet-kite graph based on the number of nodes and edges. 
+        The comet-kite graph based on the number of nodes and edges.
     """
     random.seed(seed)
     # 1) Generate complete graph
@@ -108,11 +108,11 @@ def gen_graph_comet_kite(core_size:int, num_tails:int, additional_tail_nodes:int
 
 def gen_graph_circular_chain(nodes:int):
     """
-    Function generates a cyclic graph. 
+    Function generates a cyclic graph.
     Attributes:
-        nodes(int): The indicated number of nodes within the cyclic graph. 
+        nodes(int): The indicated number of nodes within the cyclic graph.
     Returns:
-        The cyclic graph based number of nodes and edges. 
+        The cyclic graph based number of nodes and edges.
     """
     graph = nx.path_graph(nodes)
     if nodes > 1:
@@ -121,11 +121,11 @@ def gen_graph_circular_chain(nodes:int):
 
 def gen_graph_linear_chain(nodes:int):
     """
-    Function generates a linear chain or path graph. 
+    Function generates a linear chain or path graph.
     Attributes:
-        nodes(int): The indicated number of nodes in the linear chain graph. 
+        nodes(int): The indicated number of nodes in the linear chain graph.
     Returns:
-        The linear chain based number of nodes and edges. 
+        The linear chain based number of nodes and edges.
     """
     graph = nx.Graph()
     graph.add_nodes_from([i for i in range(nodes)])
@@ -134,25 +134,25 @@ def gen_graph_linear_chain(nodes:int):
 
 def gen_graph_star(nodes:int):
     """
-    Function generates a star graph. 
+    Function generates a star graph.
     Attributes:
-        nodes(int): The indicated number of nodes in the star.  
+        nodes(int): The indicated number of nodes in the star.
     Returns:
         A star shaped graph. More of a spoke though. (?)
     """
     graph = nx.star_graph(nodes)
-    return graph 
+    return graph
 
 
 def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float, seed:int):
     """
-    Function that generates a random graph structure.  
+    Function that generates a random graph structure.
     Attributes:
-        nodes(int): The indicated number of nodes that in the random structure. 
-        edge_prob(float): Represents the probability an edge will be created between nodes. 
+        nodes(int): The indicated number of nodes that in the random structure.
+        edge_prob(float): Represents the probability an edge will be created between nodes.
         seed(int): Positive integer that intializes a random number generator.
     Returns:
-        
+
     """
     graph = nx.erdos_renyi_graph(nodes, edge_prob, seed)
     print(graph.nodes)
@@ -161,24 +161,24 @@ def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float, seed:int):
 
 def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:int):
     """
-    Function generates a random graph structure.  
+    Function generates a random graph structure.
     Attributes:
-        nodes(int): The indicated number of nodes that will make up the random graph structure. 
-        edges(int): The indicated number of edges that will connect a new node to an existing node. 
+        nodes(int): The indicated number of nodes that will make up the random graph structure.
+        edges(int): The indicated number of edges that will connect a new node to an existing node.
         seed(int): Positive integer that intializes a random number generator.
     Returns:
-         A random graph structure. 
+         A random graph structure.
     """
     graph = nx.barabasi_albert_graph(nodes,edges, seed)
     return graph
 
 def gen_graph_random_waxman(nodes:int, beta:float, alpha:float, seed:int):
     """
-    Function generates a random graph structure.  
+    Function generates a random graph structure.
     Attributes:
         nodes(int): The indicated number of nodes included in the random graph structure.
-        beta(float): Model parameter needed for random waxman graph generator. 
-        alpha(float): Model parameter needed for random waxman graph generator. 
+        beta(float): Model parameter needed for random waxman graph generator.
+        alpha(float): Model parameter needed for random waxman graph generator.
         seed(int): Positive integer that intializes a random number generator.
     Returns:
         A random graph structure.
@@ -188,14 +188,14 @@ def gen_graph_random_waxman(nodes:int, beta:float, alpha:float, seed:int):
 
 def gen_graph_random_geometric(nodes:int, radius:float, dimension:int, seed:int ):
     """
-    Function generates a random geometric graph. Based on the workings of Penrose.  
+    Function generates a random geometric graph. Based on the workings of Penrose.
     Attributes:
         nodes(int): The indicated number of nodes included in the random graph structure.
-        radius(float): 
+        radius(float):
         dimension(int):
         seed(int): Positive integer that intializes a random number generator.
     Returns:
-        The a random graph structure based on the parameters of 
+        The a random graph structure based on the parameters of
     """
     graph = nx.random_geometric_graph()
     return graph
@@ -209,7 +209,7 @@ def gen_graph_edge_swapping(type:str, nodes:int ):
     -Nodes that are parallel with respect to the two disconnected edgess are then connected
     --after rewiring: two edges connecting nodes of degree 3 to nodes of degree 4 (no longer 4 clique)
     Checks:
-    degree of distribution is preserved 
+    degree of distribution is preserved
     >>mixing patterns of nodes changed
     pearson
     fully connected or not
@@ -263,6 +263,23 @@ def write_undirected_graph_to_edges_csv(fname:str, graph:nx.Graph):
     with open(fname, "w") as fp:
         fp.write(file_content)
 
+# Write networkx graph out as adjacency matrix
+def write_undirected_graph_to_matrix(fname:str, graph:nx.Graph):
+    file_content = "" # Will contain output to write to file
+    lines = []        # Will be a list of csv rows to write to file
+
+    graph_nodes = sorted(graph.nodes)
+    for frm in graph_nodes:
+        row = []
+        for to in graph_nodes:
+            row.append(str(int(graph.has_edge(frm, to))))
+        lines.append(",".join(row))
+
+    file_content += "\n".join(lines)
+    # Write file content to file
+    with open(fname, "w") as fp:
+        fp.write(file_content)
+
 def main():
     parser = argparse.ArgumentParser(
         usage="Program for generating graphs"
@@ -282,7 +299,8 @@ def main():
     parser.add_argument("--seed", type = int, default = 1, help = "Seed info")
     parser.add_argument("--edges", type = int, default =10, help = "Number of edges")
     parser.add_argument("--edge_probabilty", type = float, default = 0.5, help = "Edge creation probability")
-    parser.add_argument("--output", type = str, default = "edges.csv", help = "Name of output file")
+    parser.add_argument("--output_type", type = str, default = "edges", choices = ["edges", "matrix"], help = "Output format" )
+    parser.add_argument("--output", type = str, default = "graph.csv", help = "Name of output file")
     parser.add_argument("--beta", type = float, default = 0.4, help = "Model parameter")
     parser.add_argument("--alpha", type = float, default = 0.1, help = "Model parameter")
 
@@ -326,9 +344,9 @@ def main():
         print(graph)
     elif graph_type == "random-waxman":
         graph = gen_graph_random_waxman(
-            nodes = graph_nodes, 
-            beta = graph_beta, 
-            alpha = graph_alpha, 
+            nodes = graph_nodes,
+            beta = graph_beta,
+            alpha = graph_alpha,
             seed = args.seed)
         print(graph)
     elif graph_type == "random-geometric":
@@ -344,7 +362,13 @@ def main():
         print("Unrecognized graph type!")
         exit(-1)
 
-    write_undirected_graph_to_edges_csv(args.output, graph)
+    if args.output_type == "matrix":
+        write_undirected_graph_to_matrix(args.output, graph)
+    elif args.output_type == "edges":
+        write_undirected_graph_to_edges_csv(args.output, graph)
+    else:
+        print("Oh no!")
+        exit(-1)
 
 if __name__ == '__main__':
     main()
