@@ -11,6 +11,7 @@ Aric A. Hagberg, Daniel A. Schult and Pieter J. Swart,
  in Proceedings of the 7th Python in Science Conference (SciPy2008),
  Gäel Varoquaux, Travis Vaught, and Jarrod Millman (Eds), (Pasadena, CA USA), pp. 11–15, Aug 2008
 """
+
 import argparse
 import random
 import networkx as nx
@@ -75,7 +76,7 @@ def gen_graph_comet_kite(core_size:int, num_tails:int, additional_tail_nodes:int
         core_size(int): The number of nodes that make up the comet 'core' structure.
         num_tails(int): The number of tails that connect to the comet 'core' structure. 
         additional_tail_nodes(int): The randomly assigned node connections that are added to the length of a comet tail. 
-        seed(int): 
+        seed(int): Integer value used to intialize a pseudorandom generator.
     Returns:
         The comet-kite graph based on the number of nodes and edges. 
     """
@@ -131,13 +132,25 @@ def gen_graph_linear_chain(nodes:int):
     graph.add_edges_from([(i,i + 1) for i in range(nodes-1)])
     return graph
 
+def gen_graph_star(nodes:int):
+    """
+    Function generates a star graph. 
+    Attributes:
+        nodes(int): The indicated number of nodes in the star.  
+    Returns:
+        A star shaped graph. More of a spoke though. (?)
+    """
+    graph = nx.star_graph(nodes):
+    return graph 
+
+
 def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float, seed:int):
     """
     Function that generates a random graph structure.  
     Attributes:
         nodes(int): The indicated number of nodes that in the random structure. 
         edge_prob(float): Represents the probability an edge will be created between nodes. 
-        seed(int): 
+        seed(int): Positive integer that intializes a random number generator.
     Returns:
         
     """
@@ -152,26 +165,67 @@ def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:int):
     Attributes:
         nodes(int): The indicated number of nodes that will make up the random graph structure. 
         edges(int): The indicated number of edges that will connect a new node to an existing node. 
-        seed(int):
+        seed(int): Positive integer that intializes a random number generator.
     Returns:
-        
+         A random graph structure. 
     """
     graph = nx.barabasi_albert_graph(nodes,edges, seed)
     return graph
 
-def gen_graph_random_waxman(nodes:int, beta:float, alpha:int, seed:int):
+def gen_graph_random_waxman(nodes:int, beta:float, alpha:float, seed:int):
     """
     Function generates a random graph structure.  
     Attributes:
         nodes(int): The indicated number of nodes included in the random graph structure.
-        beta(int):
-        alpha(int):
-        seed():
+        beta(float): Model parameter needed for random waxman graph generator. 
+        alpha(float): Model parameter needed for random waxman graph generator. 
+        seed(int): Positive integer that intializes a random number generator.
+    Returns:
+        A random graph structure.
+    """
+    graph = nx.waxman_graph(nodes,beta,alpha,seed)
+    return graph
+
+def gen_graph_random_geometric(nodes:int, radius:float, dimension:int, seed:int ):
+    """
+    Function generates a random geometric graph. Based on the workings of Penrose.  
+    Attributes:
+        nodes(int): The indicated number of nodes included in the random graph structure.
+        radius(float): 
+        dimension(int):
+        seed(int): Positive integer that intializes a random number generator.
     Returns:
         The a random graph structure based on the parameters of 
     """
-    graph = nx.waxman_graph(nodes, graph_beta, graph_alpha, seed)
+    graph = nx.random_geometric_graph()
     return graph
+
+def gen_graph_edge_swapping(type:str, nodes:int ):
+    """
+    Function
+    -Takes any graph as input
+    -No edges connecting nodes of degree 3 to nodes of degree 4
+    -Two edges are randomly selected to be disconnected
+    -Nodes that are parallel with respect to the two disconnected edgess are then connected
+    --after rewiring: two edges connecting nodes of degree 3 to nodes of degree 4 (no longer 4 clique)
+    Checks:
+    degree of distribution is preserved 
+    >>mixing patterns of nodes changed
+    pearson
+    fully connected or not
+    Attributes:
+    Returns:
+    """
+    #Graph type input
+    #1. Two edges randomly selected
+    #2. Parallel edges are connected
+    #graph_type = input()
+    #for nodes in range(graph_input):
+    #random.choice(nodes)
+    #if nodes == 3 and neighboring_node == 4:
+        #graph.remove_edges_from(node, neigbhoring_node)
+        #graph.add_edges_from(node_degree, neighbor_node_degree)
+    pass
 
 def main():
     parser = argparse.ArgumentParser(
@@ -181,7 +235,7 @@ def main():
         "--type",
         type = str,
         default = "well-mixed",
-        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman"],
+        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman", "random-geometric", "edge-swapping"],
         help = "Type of graph to generate"
     )
     parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
@@ -234,7 +288,20 @@ def main():
         graph = gen_graph_random_erdos_renyi(nodes = graph_nodes, edge_prob = args.edge_prob, seed = args.seed)
         print(graph)
     elif graph_type == "random-waxman":
-        graph = gen_graph_random_waxman(nodes = graph_nodes, beta = args.graph_beta, alpha = graph_alpha, seed = seed)
+        graph = gen_graph_random_waxman(
+            nodes = graph_nodes, 
+            beta = args.graph_beta, 
+            alpha = args.graph_alpha, 
+            seed = args.seed)
+        print(graph)
+    elif graph_type == "random-geometric":
+        graph = gen_graph_random_geometric(nodes = graph_nodes)
+        print(graph)
+    elif graph_type == "edge-swapping":
+        graph = gen_graph_edge_swapping(nodes = graph_nodes)
+        print(graph)
+    elif graph_type == "star":
+        graph = gen_graph_star(nodes = graph_nodes)
         print(graph)
     else:
         print("Unrecognized graph type!")
