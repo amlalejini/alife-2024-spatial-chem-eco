@@ -246,8 +246,6 @@ def main():
     parser.add_argument("--seed", type = int, default = 1, help = "Seed info")
     parser.add_argument("--edges", type = int, default =10, help = "Number of edges")
     parser.add_argument("--edge_probabilty", type = float, default = 0.5, help = "Edge creation probability")
-    parser.add_argument("--beta", type = float, default = 0.1, help = "Model parameter for random waxman graph generator")
-    parser.add_argument("--alpha", type = float, default = 0.4, help = "Model parameter for random waxman graph generator")
 
     args = parser.parse_args()
     graph_type = args.type
@@ -306,6 +304,8 @@ def main():
     else:
         print("Unrecognized graph type!")
         exit(-1)
+
+    write_undirected_graph_to_edges_csv(args.output, graph)
 
 if __name__ == '__main__':
     main()
