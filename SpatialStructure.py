@@ -140,7 +140,7 @@ def gen_graph_star(nodes:int):
     Returns:
         A star shaped graph. More of a spoke though. (?)
     """
-    graph = nx.star_graph(nodes):
+    graph = nx.star_graph(nodes)
     return graph 
 
 
@@ -183,7 +183,7 @@ def gen_graph_random_waxman(nodes:int, beta:float, alpha:float, seed:int):
     Returns:
         A random graph structure.
     """
-    graph = nx.waxman_graph(nodes,beta,alpha,seed)
+    graph = nx.waxman_graph(n=nodes,beta=beta,alpha=alpha,seed=seed)
     return graph
 
 def gen_graph_random_geometric(nodes:int, radius:float, dimension:int, seed:int ):
@@ -223,9 +223,45 @@ def gen_graph_edge_swapping(type:str, nodes:int ):
     #for nodes in range(graph_input):
     #random.choice(nodes)
     #if nodes == 3 and neighboring_node == 4:
-        #graph.remove_edges_from(node, neigbhoring_node)
-        #graph.add_edges_from(node_degree, neighbor_node_degree)
+    #graph.remove_edges_from(node, neigbhoring_node)
+    #graph.add_edges_from(node_degree, neighbor_node_degree)
     pass
+
+def write_undirected_graph_to_edges_csv(fname:str, graph:nx.Graph):
+    file_content = "" # Will contain output to write to file
+    lines = []        # Will be a list of csv rows to write to file
+
+    # We need to track which nodes are represented in the edge list.
+    # It is possible that there are nodes with no connections that we'll
+    # need to add to the end of the file.
+    nodes_represented = set()
+
+    # Loop over edges in graph, creating the line that will be added to the file
+    for edge in graph.edges:
+        from_node = edge[0]
+        to_node = edge[1]
+        # Add from --> to
+        lines.append(f"{from_node},{to_node}")
+        # Add to --> from (because this is an undirected graph;
+        #  if this were a directed graph, would not want this line of code)
+        lines.append(f"{to_node},{from_node}")
+        # Make note of which nodes we've encountered
+        nodes_represented.add(from_node)
+        nodes_represented.add(to_node)
+
+    # Any nodes not encountered by looping over edges (i.e., nodes that have no edges),
+    # we need to add as lines to the file indicating that it is a part of the graph
+    for node in graph.nodes:
+        if not node in nodes_represented:
+            lines.append(f"{node},NONE")
+
+    # Combine lines with header information to create file content
+    header = "from,to"
+    file_content += header + "\n"
+    file_content += "\n".join(lines)
+    # Write file content to file
+    with open(fname, "w") as fp:
+        fp.write(file_content)
 
 def main():
     parser = argparse.ArgumentParser(
@@ -235,7 +271,7 @@ def main():
         "--type",
         type = str,
         default = "well-mixed",
-        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman", "random-geometric", "edge-swapping"],
+        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman", "random-geometric", "edge-swapping", "star"],
         help = "Type of graph to generate"
     )
     parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
@@ -246,6 +282,9 @@ def main():
     parser.add_argument("--seed", type = int, default = 1, help = "Seed info")
     parser.add_argument("--edges", type = int, default =10, help = "Number of edges")
     parser.add_argument("--edge_probabilty", type = float, default = 0.5, help = "Edge creation probability")
+    parser.add_argument("--output", type = str, default = "edges.csv", help = "Name of output file")
+    parser.add_argument("--beta", type = float, default = 0.4, help = "Model parameter")
+    parser.add_argument("--alpha", type = float, default = 0.1, help = "Model parameter")
 
     args = parser.parse_args()
     graph_type = args.type
@@ -288,8 +327,8 @@ def main():
     elif graph_type == "random-waxman":
         graph = gen_graph_random_waxman(
             nodes = graph_nodes, 
-            beta = args.graph_beta, 
-            alpha = args.graph_alpha, 
+            beta = graph_beta, 
+            alpha = graph_alpha, 
             seed = args.seed)
         print(graph)
     elif graph_type == "random-geometric":
