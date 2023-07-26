@@ -1,4 +1,5 @@
 pyenv/
 venv/
+local/
 
 *.csv
