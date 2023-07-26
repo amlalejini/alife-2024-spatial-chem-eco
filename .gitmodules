@@ -1,0 +1,4 @@
+[submodule "third-party/chemical-ecology"]
+	path = third-party/chemical-ecology
+	url = https://github.com/amlalejini/chemical-ecology.git
+	branch = impl-spatial-structure
