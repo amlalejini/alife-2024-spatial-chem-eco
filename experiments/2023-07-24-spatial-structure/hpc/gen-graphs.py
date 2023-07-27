@@ -15,27 +15,6 @@ sys.path.append(
 import SpatialStructure as structs
 import utilities as utils
 
-'''
-well-mixed:
---nodes 100
-toroidal-lattice: height x width
-height 10
-width 10
-comet-kite:
---coresize 40
---tail-size 20
---additional-tails 40
-linear-chain:
---nodes 100
-barabasi:
---nodes 100
---edges 10
-waxman:
---nodes 100
---beta
---alpha
-'''
-
 graphs = {
     "well-mixed": {
         "graph": "well-mixed",
@@ -56,6 +35,16 @@ graphs = {
         "graph": "linear-chain",
         "args": {"nodes": 100},
         "shared": True
+    },
+    "random-barabasi-albert": {
+        "graph": "random-barabasi-albert",
+        "args": {"nodes": 100, "edges": 10},
+        "shared": False
+    },
+    "random-waxman": {
+        "graph": "random-waxman",
+        "args": {"nodes": 100, "beta": 0.4, "alpha": 0.2},
+        "shared": False
     }
 }
 
@@ -128,8 +117,6 @@ def main():
                     "file": out_name,
                     "seed": None if "seed" not in graph_args else graph_args["seed"]
                 }
-
-
 
     # Write out graph files
     utils.mkdir_p(args.dump_dir)
