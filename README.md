@@ -1,14 +1,29 @@
-# artificial-ecology-repo
-Artificial Ecology project - spatial structure
-Some description
-
+# Role of spatial structure in a chemical ecology model
 
 ## Setup
 
+### Git submodules
+
+```
+git submodule update --init --recursive
+```
+
+After updating the submodules, check that you have the `chemical-ecology` dependency.
+You should be able to compile the chemical ecology software:
+
+```
+cd third-party/chemical-ecology
+make debug
+```
+
+### Set up your python virtual environment
+
 From the terminal inside this directory:
 
-- Create a python virtual environment: `python -m venv pyenv`
-
+```
+python -m venv pyenv
+pip install -r requirements
+```
 
 ## Running the code
 
