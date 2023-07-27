@@ -24,3 +24,12 @@ waxman:
 --beta 0.4
 --alpha 0.2
 ```
+
+## `hpc/`
+
+- `config/` contains configuration files necessary for all runs for this experiment
+- `base_slurm_script.txt` template slurm submissions script, used by `gen-sub.py` to generate submission files for all experiment treatments (specified inside `gen-sub.py`)
+- `gen-graphs.py` generates graph files for experiment (graph types specified inside `gen-graphs.py`)
+- `gen-sub.py` generates slurm submission scripts, one for each treatment
+- `job-gen.sh` runs `gen-graphs.py` and `gen-sub.py` parameterized appropriately for this experiment (and your account)
+- `local-job-gen.sh` same as `job-gen.sh` but works locally on your machine for checking whether everything is being generated as expected
