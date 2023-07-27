@@ -1,4 +1,7 @@
 pyenv/
 venv/
+local/
+
+__pycache__
 
 *.csv
