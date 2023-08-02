@@ -31,7 +31,17 @@ base_script_filename = "./base_slurm_script.txt"
 combos = CombinationCollector()
 
 fixed_parameters = {
-    # TODO
+    "N_TYPES": "9",
+    "UPDATES": "1000",
+    "MAX_POP": "10000",
+    "V": "0",
+    "DIFFUSION": "0.549",
+    "SEEDING_PROB": "1.0",
+    "PROB_CLEAR": "0.0",
+    "REPRO_DILUTION": "0.1",
+    "INTERACTION_SOURCE": "${CONFIG_DIR}/interaction-matrices/class1.dat",
+    "INTERACTION_MAGNITUDE": "1.0",
+    "PROB_INTERACTION": "0.1"
 }
 
 special_decorators = [
@@ -43,12 +53,12 @@ combos.register_var("DIFFUSION_SPATIAL_STRUCTURE_FILE")
 combos.add_val(
     "DIFFUSION_SPATIAL_STRUCTURE_FILE",
     [
-        "${CONFIG_DIR}/graph-comet-kite_${SLURM_ARRAY_TASK_ID}.mat",
-        "${CONFIG_DIR}/graph-linear-chain.mat",
-        "${CONFIG_DIR}/graph-toroidal-lattice.mat",
-        "${CONFIG_DIR}/graph-well-mixed.mat",
-        "${CONFIG_DIR}/graph-random-barabasi-albert_${SLURM_ARRAY_TASK_ID}.mat",
-        "${CONFIG_DIR}/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat"
+        "${CONFIG_DIR}/spatial-structures/graph-comet-kite_${SLURM_ARRAY_TASK_ID}.mat",
+        "${CONFIG_DIR}/spatial-structures/graph-linear-chain.mat",
+        "${CONFIG_DIR}/spatial-structures/graph-toroidal-lattice.mat",
+        "${CONFIG_DIR}/spatial-structures/graph-well-mixed.mat",
+        "${CONFIG_DIR}/spatial-structures/graph-random-barabasi-albert_${SLURM_ARRAY_TASK_ID}.mat",
+        "${CONFIG_DIR}/spatial-structures/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat"
     ]
 )
 
