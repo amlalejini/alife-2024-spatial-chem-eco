@@ -1,0 +1,45 @@
+#!/bin/bash
+########## Define Resources Needed with SBATCH Lines ##########
+​
+#SBATCH --time=24:00:00          # limit of wall clock time - how long the job will run (same as -t)
+#SBATCH --array=1-20
+#SBATCH --mem=8G                 # memory required per node - amount of memory (in bytes)
+#SBATCH --job-name=2023-07-29-random-waxman         # you can give your job a name for easier identification (same as -J)
+​
+########## Command Lines to Run ##########
+
+JOB_SEED_OFFSET=1040
+SEED=$((JOB_SEED_OFFSET + SLURM_ARRAY_TASK_ID - 1))
+
+GRAPH_OUTPUT_MODE=matrix
+
+EXEC=chemical-ecology
+#Setup all directories at the beginning
+REPO_DIR=/mnt/home/sheajoh2/devos_ws/artificial-ecology
+CONFIG_DIR=${REPO_DIR}/experiments/2023-07-29-spatial-structure/hpc/config
+SCRATCH_DIR=/mnt/scratch/sheajoh2
+RUN_DIR=${SCRATCH_DIR}/2023-07-29-spatial-structure/RUN_C4_${SEED}
+
+#Load correct environment 
+cd ${REPO_DIR}
+module load GCCcore/11.2.0
+module load Python/3.9.6
+#Activate python virtual environment
+source ${REPO_DIR}/pyenv/bin/activate
+
+mkdir -p ${RUN_DIR}
+cd ${RUN_DIR}
+cp ${CONFIG_DIR}/*.cfg .
+cp ${CONFIG_DIR}/${EXEC} .
+
+#### Run experiment ####
+cd ${RUN_DIR}
+
+RUN_PARAMETERS="-N_TYPES 9 -UPDATES 10000 -MAX_POP 10000 -DIFFUSION 1 -SEEDING_PROB 0.001 -REPRO_THRESHOLD 1000000 -PROB_CLEAR 0.25 -REPRO_DILUTION 0.1 -V 0 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/klemm.dat -INTERACTION_MAGNITUDE 1 -PROB_INTERACTION 0.1  -DIFFUSION_SPATIAL_STRUCTURE load -DIFFUSION_SPATIAL_STRUCTURE_LOAD_MODE matrix -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat -SEED ${SEED}"
+
+echo "./${EXEC} ${RUN_PARAMS}" > cmd.log
+./${EXEC} ${RUN_PARAMS} > run.log
+
+#### Clean up ####
+rm ${RUN_DIR}/*.cfg
+rm ${RUN_DIR}/${EXEC}
