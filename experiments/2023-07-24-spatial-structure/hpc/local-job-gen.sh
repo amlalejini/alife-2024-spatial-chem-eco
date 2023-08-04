@@ -6,11 +6,11 @@ ACCOUNT=devolab
 SEED_OFFSET=1000
 JOB_TIME=24:00:00
 JOB_MEM=8G
-PROJECT_NAME=artificial-ecology-spatial
+PROJECT_NAME=artificial-ecology
 
 GRAPH_OUTPUT_MODE=matrix
 
-REPO_DIR=/Users/lalejina/devo_ws/${PROJECT_NAME}
+REPO_DIR=/Users/johnshea/${PROJECT_NAME}
 HOME_EXP_DIR=${REPO_DIR}/experiments/${EXP_SLUG}
 
 DATA_DIR=${HOME_EXP_DIR}/hpc/test
