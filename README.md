@@ -35,3 +35,8 @@ From the terminal inside this directory:
   - `source pyenv/bin/activate`
 - If you haven't installed the dependencies, install the dependencies:
   - `pip install -r requirements.txt`
+
+How to run:
+- in terminal
+  - python3 SpatialStructure.py --type (insert graph name) --node(insert number of designated nodes --etc (insert parameter)
+  

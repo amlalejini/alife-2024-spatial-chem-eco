@@ -1,5 +1,5 @@
 """
-Programmer: John Shea
+Programmer: Alex Lalejini, John Shea
 Project: Spatial Structure
 Date: 06/30/2023
 Version: 1
@@ -10,6 +10,27 @@ Aric A. Hagberg, Daniel A. Schult and Pieter J. Swart,
 “Exploring network structure, dynamics, and function using NetworkX”,
  in Proceedings of the 7th Python in Science Conference (SciPy2008),
  Gäel Varoquaux, Travis Vaught, and Jarrod Millman (Eds), (Pasadena, CA USA), pp. 11–15, Aug 2008
+
+Experiment sizes
+well-mixed: 
+--nodes 100
+toroidal-lattice: height x width
+height 10
+width 10
+comet-kite:
+--coresize 40 
+--tail-size 20
+--additional-tails 40
+linear-chain: 
+--nodes 100
+barabasi: 
+--nodes 100 
+--edges 10
+waxman:
+--nodes 100
+--beta 0.4
+--alpha 0.2
+ 
 """
 
 import argparse
@@ -169,7 +190,7 @@ def gen_graph_random_barabasi_albert(nodes:int, edges:int, seed:int):
     Returns:
          A random graph structure.
     """
-    graph = nx.barabasi_albert_graph(nodes,edges, seed)
+    graph = nx.barabasi_albert_graph(nodes, edges, seed)
     return graph
 
 def gen_graph_random_waxman(nodes:int, beta:float, alpha:float, seed:int):
@@ -291,7 +312,7 @@ def main():
         choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman", "random-geometric", "edge-swapping", "star"],
         help = "Type of graph to generate"
     )
-    parser.add_argument("--nodes", type = int, default = 10, help = "Number of nodes in graph")
+    parser.add_argument("--nodes", type = int, default = 100, help = "Number of nodes in graph")
     parser.add_argument("--tails", type = int, default = 2, help = "Number of tails conneted to graph")
     parser.add_argument("--additional_tail_nodes", type = int, default = 2, help = "Number of nodes in tail part of graph")
     parser.add_argument("--height", type = int, default = 3, help = "Height of graph (for graph types where relevant)")
