@@ -2,6 +2,10 @@ pyenv/
 venv/
 local/
 
+chemical-ecology
+*.cfg
+debug_file
+
 .DS_Store
 
 __pycache__

@@ -25,6 +25,25 @@ waxman:
 --alpha 0.2
 ```
 
+Fixed parameters from `class1.sb` in `third-party/chemical-ecology/config/`:
+
+```
+-REPRO_THRESHOLD 10000000000 -MAX_POP 10000 -SEEDING_PROB 1 -DIFFUSION .549 -PROB_CLEAR 0 -WORLD_X 10 -WORLD_Y 10 -INTERACTION_SOURCE evolve/class1interaction_matrix.dat -N_TYPES 9 -UPDATES 1000
+```
+
+- N_TYPES = 9
+- UPDATES = 1000
+- MAX_POP = 10000
+- V = 0
+- DIFFUSION = 0.549
+- SEEDING_PROB = 1.0
+- PROB_CLEAR = 0.0
+- REPRO_DILUTION = 0.1
+- INTERACTION_SOURCE = class1 interaction matrix
+- INTERACTION_MAGNITUDE 1
+- PROB_INTERACTION 0.1
+
+
 ## `hpc/`
 
 - `config/` contains configuration files necessary for all runs for this experiment

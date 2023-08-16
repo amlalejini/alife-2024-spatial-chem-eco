@@ -37,28 +37,33 @@ fixed_parameters = {
     "V": "0",
     "DIFFUSION": "0.549",
     "SEEDING_PROB": "1.0",
-    "PROB_CLEAR": "0.0",
+    "PROB_CLEAR": "0.01",
     "REPRO_DILUTION": "0.1",
     "INTERACTION_SOURCE": "${CONFIG_DIR}/interaction-matrices/class1.dat",
     "INTERACTION_MAGNITUDE": "1.0",
-    "PROB_INTERACTION": "0.1"
+    "PROB_INTERACTION": "0.1",
+    "DIFFUSION_SPATIAL_STRUCTURE_LOAD_MODE": "load",
+    "STOCHASTIC_ANALYSIS_REPS": "100",
+    "CELL_STABILIZATION_UPDATES": "10000",
+    "CELL_STABILIZATION_EPSILON": "0.001"
+
 }
 
 special_decorators = [
     "__COPY_OVER"
 ]
 
-combos.register_var("DIFFUSION_SPATIAL_STRUCTURE_FILE")
+combos.register_var("DIFFUSION_SPATIAL_STRUCTURE_FILE__COPY_OVER")
 
 combos.add_val(
-    "DIFFUSION_SPATIAL_STRUCTURE_FILE",
+    "DIFFUSION_SPATIAL_STRUCTURE_FILE__COPY_OVER",
     [
-        "${CONFIG_DIR}/spatial-structures/graph-comet-kite_${SLURM_ARRAY_TASK_ID}.mat",
-        "${CONFIG_DIR}/spatial-structures/graph-linear-chain.mat",
-        "${CONFIG_DIR}/spatial-structures/graph-toroidal-lattice.mat",
-        "${CONFIG_DIR}/spatial-structures/graph-well-mixed.mat",
-        "${CONFIG_DIR}/spatial-structures/graph-random-barabasi-albert_${SLURM_ARRAY_TASK_ID}.mat",
-        "${CONFIG_DIR}/spatial-structures/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat"
+        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-comet-kite_${SLURM_ARRAY_TASK_ID}.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-comet-kite_${SLURM_ARRAY_TASK_ID}.mat",
+        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-linear-chain.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-linear-chain.mat",
+        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-toroidal-lattice.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-toroidal-lattice.mat",
+        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-well-mixed.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-well-mixed.mat",
+        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-barabasi-albert_${SLURM_ARRAY_TASK_ID}.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-barabasi-albert_${SLURM_ARRAY_TASK_ID}.mat",
+        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat"
     ]
 )
 
