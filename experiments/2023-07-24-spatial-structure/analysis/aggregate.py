@@ -56,7 +56,9 @@ def write_csv(output_path, summary_dict):
     with open(output_path, "w") as fp:
         fp.write(out_content)
 
-
+# TODO:
+# - Extract and output world_summary_pwip information (in addition to recorded community info already being output)
+# - Test script on John's data
 
 def main():
     parser = argparse.ArgumentParser(description="Run submission script.")
@@ -123,6 +125,13 @@ def main():
             cmd_params[param] = value
             if param in run_cfg_fields:
                 shared_summary_info[param] = value
+
+        #
+        graph_type = cmd_params["DIFFUSION_SPATIAL_STRUCTURE_FILE"]
+        graph_type = graph_type.replace("graph-", "")
+        graph_type = graph_type.split("_")[0]
+        shared_summary_info["graph_type"] = graph_type
+
         print("Run configuration:", shared_summary_info)
         ############################################################
 
