@@ -53,6 +53,7 @@ def write_csv(output_path, summary_dict):
         line = ",".join([str(info[field]) for field in header])
         lines.append(line)
     out_content = "\n".join(lines)
+
     with open(output_path, "w") as fp:
         fp.write(out_content)
 
@@ -83,11 +84,12 @@ def main():
     print(f"Found {len(run_dirs)} run directories.")
 
     # Create data structure to hold summary information for each run (1 element per run)
-    raw_community_summary_header = None
+    # Aggregates from "recorded_communities_raw.csv"
     raw_community_summary_content_lines = []
-
-    pwip_community_summary_header = None
+    # Aggregates from "recorded_communities_pwip.csv"
     pwip_community_summary_content_lines = []
+    # Aggregates from "world_summary_pwip.csv"
+    pwip_world_summary_content_lines = []
 
     incomplete_runs = []
 
@@ -126,12 +128,15 @@ def main():
             if param in run_cfg_fields:
                 shared_summary_info[param] = value
 
-        #
-        graph_type = cmd_params["DIFFUSION_SPATIAL_STRUCTURE_FILE"]
+        # Pull graph type from graph file name.
+        # Expected format: graph-{GRAPH_TYPE}_{REPID}.csv
+        graph_type = os.path.split(
+            cmd_params["DIFFUSION_SPATIAL_STRUCTURE_FILE"]
+        )[1]
         graph_type = graph_type.replace("graph-", "")
+        graph_type = graph_type.split(".")[0]
         graph_type = graph_type.split("_")[0]
         shared_summary_info["graph_type"] = graph_type
-
         print("Run configuration:", shared_summary_info)
         ############################################################
 
@@ -157,18 +162,16 @@ def main():
                 pwip_community_summary_content_lines[-1][field] = shared_summary_info[field]
         ############################################################
 
-        # ############################################################
-        # # Add summary_info to aggregate content
-        # summary_fields = list(summary_info.keys())
-        # summary_fields.sort()
-        # if summary_header == None:
-        #     summary_header = summary_fields
-        # elif summary_header != summary_fields:
-        #     print("Header mismatch!")
-        #     exit(-1)
-        # summary_line = [str(summary_info[field]) for field in summary_fields]
-        # summary_content_lines.append(",".join(summary_line))
-        # ############################################################
+        ############################################################
+        # Extract pwip recorded communities
+        run_data_path = os.path.join(run_path, "output", "world_summary_pwip.csv")
+        run_data = utils.read_csv(run_data_path)
+
+        for line in run_data:
+            pwip_world_summary_content_lines.append(line)
+            for field in shared_summary_info:
+                pwip_world_summary_content_lines[-1][field] = shared_summary_info[field]
+        ############################################################
 
     write_csv(
         os.path.join(dump_dir, "pwip_communities.csv"),
@@ -178,6 +181,11 @@ def main():
     write_csv(
         os.path.join(dump_dir, "raw_communities.csv"),
         raw_community_summary_content_lines
+    )
+
+    write_csv(
+        os.path.join(dump_dir, "world_summary.csv"),
+        pwip_world_summary_content_lines
     )
 
     # Write out incomplete runs, sort them!
