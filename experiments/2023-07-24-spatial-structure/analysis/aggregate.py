@@ -52,7 +52,9 @@ def write_csv(output_path, summary_dict):
             exit(-1)
         line = ",".join([str(info[field]) for field in header])
         lines.append(line)
-    out_content = "\n".join(lines)
+    out_content = ",".join(header) + "\n"
+    out_content += "\n".join(lines)
+
 
     with open(output_path, "w") as fp:
         fp.write(out_content)
