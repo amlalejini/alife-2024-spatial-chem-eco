@@ -31,18 +31,17 @@ base_script_filename = "./base_slurm_script.txt"
 combos = CombinationCollector()
 
 fixed_parameters = {
-    # "DIFFUSION": "0.549", # TODO - update
-    # "SEEDING_PROB": "1.0",
-    # "PROB_CLEAR": "0.01",
     "N_TYPES": "9",
     "UPDATES": "1000",
     "MAX_POP": "10000",
     "V": "0",
     "REPRO_DILUTION": "0.1",
-    # "INTERACTION_SOURCE": "${CONFIG_DIR}/interaction-matrices/class1.dat",
     "INTERACTION_MAGNITUDE": "1.0",
     "PROB_INTERACTION": "0.1",
-    "DIFFUSION_SPATIAL_STRUCTURE_LOAD_MODE": "load",
+    "GROUP_REPRO_SPATIAL_STRUCTURE": "load",
+    "DIFFUSION_SPATIAL_STRUCTURE": "load",
+    "DIFFUSION_SPATIAL_STRUCTURE_LOAD_MODE": "matrix",
+    "GROUP_REPRO_SPATIAL_STRUCTURE_LOAD_MODE": "matrix",
     "STOCHASTIC_ANALYSIS_REPS": "100",
     "CELL_STABILIZATION_UPDATES": "10000",
     "CELL_STABILIZATION_EPSILON": "0.001"
