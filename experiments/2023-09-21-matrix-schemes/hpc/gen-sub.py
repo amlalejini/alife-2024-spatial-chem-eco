@@ -56,7 +56,7 @@ special_decorators = [
 ]
 
 combos.register_var("DIFFUSION_SPATIAL_STRUCTURE_FILE__COPY_OVER")
-combos.register_var("INTERACTION_SOURCE")
+combos.register_var("INTERACTION_SOURCE__COPY_OVER")
 
 combos.add_val(
     "DIFFUSION_SPATIAL_STRUCTURE_FILE__COPY_OVER",
