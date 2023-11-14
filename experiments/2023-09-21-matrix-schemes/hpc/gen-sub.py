@@ -31,7 +31,7 @@ base_script_filename = "./base_slurm_script.txt"
 combos = CombinationCollector()
 #-DIFFUSION 1 -SEEDING_PROB 0.681 -PROB_CLEAR 0
 fixed_parameters = {
-    "N_TYPES": "9",
+    # "N_TYPES": "9",
     "UPDATES": "1000",
     "MAX_POP": "10000",
     "V": "0",
@@ -70,11 +70,11 @@ combos.add_val(
     ]
 )
 combos.add_val(
-   "INTERACTION_SOURCE",
+   "INTERACTION_SOURCE__COPY_OVER",
    [
-    "${CONFIG_DIR}/interaction-matrices/1464_diet-composition_${SLURM_ARRAY_TASK_ID}.csv",
-    "${CONFIG_DIR}/interaction-matrices/1473_diet-composition_${SLURM_ARRAY_TASK_ID}.csv",
-    "${CONFIG_DIR}/interaction-matrices/1512_diet-composition_${SLURM_ARRAY_TASK_ID}.csv"
+    "-N_TYPES 15 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/1464_diet-composition_${SLURM_ARRAY_TASK_ID}.csv",
+    "-N_TYPES 16 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/1473_diet-composition_${SLURM_ARRAY_TASK_ID}.csv",
+    "-N_TYPES 14 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/1512_diet-composition_${SLURM_ARRAY_TASK_ID}.csv"
 
    ]
 )
