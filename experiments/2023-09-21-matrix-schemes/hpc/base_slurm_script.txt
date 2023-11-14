@@ -5,7 +5,6 @@
 #SBATCH --array=<<ARRAY_ID_RANGE>>
 #SBATCH --mem=<<MEMORY_REQUEST>>        # memory required per node - amount of memory (in bytes)
 #SBATCH --job-name=<<JOB_NAME>>         # you can give your job a name for easier identification (same as -J)
-#SBATCH --account=<<ACCOUNT_NAME>>
 
 ########## Command Lines to Run ##########
 
