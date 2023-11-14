@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPLICATES=20
-EXP_SLUG=2023-09-01-class2
+EXP_SLUG=2023-09-21-matrix-schemes
 ACCOUNT=devolab
 SEED_OFFSET=1000
 JOB_TIME=00:10:00
