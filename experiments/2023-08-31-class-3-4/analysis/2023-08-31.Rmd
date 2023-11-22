@@ -61,8 +61,8 @@ world_summary_data <- world_summary_data %>%
 ## Adaptive proportion / assembly proportion
 
 ```{r}
-adaptive_assembly_ratio_plot <- ggplot(
-  data = world_summary_data,
+c3_adaptive_assembly_ratio_plot <- ggplot(
+  data = world_summary_data %>% filter(interaction_matrix == "class3"),
   mapping = aes(
     x = graph_type,
     y = adaptive_assembly_ratio,
@@ -89,7 +89,8 @@ adaptive_assembly_ratio_plot <- ggplot(
   facet_wrap(
     ~interaction_matrix,
     nrow=2,
-    labeller=label_both
+    labeller=label_both,
+    scales = "free"
   ) +
   theme(
     legend.position = "none",
@@ -100,8 +101,56 @@ adaptive_assembly_ratio_plot <- ggplot(
   )
 
 ggsave(
-  filename = paste0(plot_directory, "adaptive-assembly-ratio.pdf"),
-  plot = adaptive_assembly_ratio_plot,
+  filename = paste0(plot_directory, "c3-adaptive-assembly-ratio.pdf"),
+  plot = c3_adaptive_assembly_ratio_plot,
+  width = 15,
+  height = 10
+)
+```
+
+```{r}
+c4_adaptive_assembly_ratio_plot <- ggplot(
+  data = world_summary_data %>% filter(interaction_matrix == "class4"),
+  mapping = aes(
+    x = graph_type,
+    y = adaptive_assembly_ratio,
+    fill = graph_type
+  )
+) +
+  geom_flat_violin(
+    position = position_nudge(x = .2, y = 0),
+    alpha = .8
+  ) +
+  geom_point(
+    mapping=aes(color=graph_type),
+    position = position_jitter(width = .15),
+    size = .5,
+    alpha = 0.8
+  ) +
+  geom_boxplot(
+    width = .1,
+    outlier.shape = NA,
+    alpha = 0.5
+  ) +
+  scale_fill_bright() +
+  scale_color_bright() +
+  facet_wrap(
+    ~interaction_matrix,
+    nrow=2,
+    labeller=label_both,
+    scales = "free"
+  ) +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(
+      angle = 30,
+      hjust = 1
+    )
+  )
+
+ggsave(
+  filename = paste0(plot_directory, "c4-adaptive-assembly-ratio.pdf"),
+  plot = c4_adaptive_assembly_ratio_plot,
   width = 15,
   height = 10
 )
