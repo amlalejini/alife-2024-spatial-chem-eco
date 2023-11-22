@@ -1,0 +1,4 @@
+test/
+!config/graph-*.csv
+!config/graph-*.mat
+!config/*.cfg
