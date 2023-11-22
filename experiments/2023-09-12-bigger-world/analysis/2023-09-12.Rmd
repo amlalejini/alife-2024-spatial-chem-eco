@@ -1,0 +1,150 @@
+# 2023-08-31 - class 3 and 4 experiment
+
+```{r}
+experiment_slug <- "2023-09-12-bigger-world"
+
+working_directory <- paste0(
+  "experiments/",
+  experiment_slug,
+  "/analysis/"
+)
+```
+
+## Dependencies
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(cowplot)
+library(RColorBrewer)
+library(khroma)
+source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
+```
+
+```{r}
+print(version)
+```
+
+## Setup
+
+```{r}
+# Configure our default graphing theme
+theme_set(theme_cowplot())
+# Create a directory to store plots
+plot_directory <- paste0(working_directory, "plots/")
+dir.create(plot_directory, showWarnings=FALSE)
+```
+
+```{r}
+world_summary_data_loc <- paste0(working_directory, "data/world_summary.csv")
+world_summary_data <- read.csv(world_summary_data_loc, na.strings = "NONE")
+
+num_err <- world_summary_data %>%
+  filter(
+    adaptive_assembly_ratio == "ERR"
+  ) %>%
+  nrow()
+
+world_summary_data <- world_summary_data %>%
+  filter(
+    adaptive_assembly_ratio != "ERR" &
+    num_present_species != "0"
+  ) %>%
+  mutate(
+    graph_type = as.factor(graph_type),
+    interaction_matrix = as.factor(interaction_matrix),
+    adaptive_assembly_ratio = as.numeric(adaptive_assembly_ratio)
+  )
+
+
+```
+
+## Adaptive proportion / assembly proportion
+
+```{r}
+plot_matrix_type <- function(interaction_mat) {
+  adaptive_assembly_ratio_plot <- ggplot(
+    data = world_summary_data %>% filter(interaction_matrix == interaction_mat),
+    mapping = aes(
+      x = graph_type,
+      y = adaptive_assembly_ratio,
+      fill = graph_type
+    )
+  ) +
+    geom_flat_violin(
+      position = position_nudge(x = .2, y = 0),
+      alpha = .8
+    ) +
+    geom_point(
+      mapping=aes(color=graph_type),
+      position = position_jitter(width = .15),
+      size = .5,
+      alpha = 0.8
+    ) +
+    geom_boxplot(
+      width = .1,
+      outlier.shape = NA,
+      alpha = 0.5
+    ) +
+    scale_fill_bright() +
+    scale_color_bright() +
+    facet_wrap(
+      ~interaction_matrix,
+      nrow=2,
+      labeller=label_both,
+      scales = "free"
+    ) +
+    theme(
+      legend.position = "none",
+      axis.text.x = element_text(
+        angle = 30,
+        hjust = 1
+      )
+    )
+
+  ggsave(
+    filename = paste0(plot_directory, interaction_mat, "-adaptive-assembly-ratio.pdf"),
+    plot = adaptive_assembly_ratio_plot,
+    width = 15,
+    height = 10
+  )
+}
+```
+
+```{r}
+plot_matrix_type("class1")
+plot_matrix_type("class2")
+plot_matrix_type("class3")
+plot_matrix_type("class4")
+```
+
+
+
+```{r}
+kruskal.test(
+  formula = adaptive_assembly_ratio ~ graph_type,
+  data = world_summary_data %>% filter(interaction_matrix == "class3")
+)
+
+kruskal.test(
+  formula = adaptive_assembly_ratio ~ graph_type,
+  data = world_summary_data %>% filter(interaction_matrix == "class4")
+)
+```
+
+## Number of communities
+
+```{r}
+num_final_communities <- world_summary_data %>%
+  group_by(
+    graph_type,
+    interaction_matrix,
+    SEED
+  ) %>%
+  summarize(
+    n = n()
+  )
+
+# Which communities have more than one final community?
+filter(num_final_communities, n > 1)
+```
