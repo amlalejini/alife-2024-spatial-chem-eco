@@ -52,3 +52,25 @@ def read_csv(file_path):
         )
     ]
     return lines
+
+def parse_list(list_str: str, sep: str = " ", begin: str = "[", end: str = "]"):
+    return list_str.strip(begin + end).strip().split(sep)
+
+def get_file_num(fpath):
+    '''
+    Get file number, assuming format of {FILENAME}_{NUMBER}.{EXTENSION}
+    '''
+    fname = os.path.basename(fpath)    # Get rid of preceeding path
+    fname = os.path.splitext(fname)[0] # Get rid of file extension
+    num = fname.split("_")[-1]
+    return int(num) if num.isnumeric() else -1
+
+def identify_file(directory, file_str, get_trait_fun = get_file_num, select_fun = max):
+    """
+    directory: directory to search
+    file_str: string that identifies which files should be included in search
+    get_trait_fun: funtion that extracts trait from file names to select on
+    select_fun: function that selects file based on trait
+    """
+    options = [(get_trait_fun(fname), fname) for fname in os.listdir(directory) if file_str in fname]
+    return select_fun(options)[1]
