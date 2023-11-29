@@ -121,8 +121,6 @@ def main():
     args = parser.parse_args()
     data_dir = args.data_dir
     dump_dir = args.dump
-    # time_series_units = args.units
-    # time_series_resolution = args.resolution
 
     # Verify that the given data directory exits
     if not os.path.exists(data_dir):
@@ -248,9 +246,7 @@ def main():
                 pwip_world_summary_content_lines[-1][field] = shared_summary_info[field]
         if pwip_world_summary_header == None:
             pwip_world_summary_header = write_csv(pwip_world_summary_fpath, pwip_world_summary_content_lines)
-            print("hello")
         else:
-            print("append!")
             append_csv(pwip_world_summary_fpath, pwip_world_summary_content_lines, pwip_world_summary_header)
         ############################################################
         # Isolate assembly/adaptive/world communities to use in analysis
