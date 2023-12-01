@@ -1,0 +1,29 @@
+#!/bin/bash
+########## Define Resources Needed with SBATCH Lines ##########
+
+#SBATCH --time=04:00:00          # limit of wall clock time - how long the job will run (same as -t)
+#SBATCH --mem=4gb
+#SBATCH --job-name=agg         # you can give your job a name for easier identification (same as -J)
+
+########## Command Lines to Run ##########
+
+PROJECT_NAME=artificial-ecology
+EXP_SLUG=2023-09-21-matrix-schemes
+
+# Setup all directories at the beginning
+HOME_DIR=/mnt/home/sheajoh2
+REPO_DIR=${HOME_DIR}/devo_ws/artificial-ecology
+EXP_DIR=${REPO_DIR}/experiments/2023-09-21-matrix-schemes/analysis
+
+SCRATCH_DIR=/mnt/scratch/sheajoh2
+DATA_DIR=${SCRATCH_DIR}/data/${PROJECT_NAME}/${EXP_SLUG}
+
+# Load correct environment
+cd ${REPO_DIR}
+module load Python/3.9.6
+# Activate python virtual environment
+source ${REPO_DIR}/pyenv/bin/activate
+
+cd ${EXP_DIR}
+python3 aggregate.py --data_dir ${DATA_DIR} --dump ${EXP_DIR}/dump
+
