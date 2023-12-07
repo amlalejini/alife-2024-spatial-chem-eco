@@ -69,7 +69,7 @@ def append_csv(output_path, out_lines, field_order):
     for info in out_lines:
         line = ",".join([str(info[field]) for field in field_order])
         lines.append(line)
-    out_content = "\n".join(lines)
+    out_content = "\n" + "\n".join(lines)
     with open(output_path, "a") as fp:
         fp.write(out_content)
 
