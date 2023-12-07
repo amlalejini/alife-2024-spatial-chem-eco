@@ -1,0 +1,70 @@
+```{r}
+library(tidyverse)
+library(Hmisc)
+library(ggplot2)
+```
+
+
+
+
+```{r}
+setwd("/Users/johnshea/Desktop/artificial-ecology/experiments/2023-09-21-matrix-schemes/analysis")
+data <- read_csv("pwip_world_summary_time_series.csv")
+```
+
+```{r}
+data <- data %>% 
+  mutate(
+    interaction_matrix = as.factor(interaction_matrix),
+    graph_type = as.factor(graph_type)
+  )
+
+```
+
+```{r}
+data %>% 
+  filter(adaptive_assembly_ratio!="ERR"& num_present_species>0) %>% 
+  mutate(adaptive_assembly_ratio = as.numeric(adaptive_assembly_ratio)) %>%
+  ggplot(
+    aes(
+      x=update,
+      y=adaptive_assembly_ratio,
+      color=graph_type
+    )
+  ) + 
+  stat_summary(geom="line", fun=mean) +
+  stat_summary(geom="ribbon", fun="mean_cl_boot", fun.args=list(conf.int=0.95), alpha=0.2, linetype=0) +
+  facet_wrap(~interaction_matrix, ncol=1, scales = "free_y") + 
+  geom_smooth()
+
+  
+
+```
+
+```{r}
+data <- data %>% 
+  mutate(
+    interaction_matrix = as.factor(interaction_matrix),
+    graph_type = as.factor(graph_type)
+  )
+
+```
+
+```{r}
+data %>% 
+  filter(adaptive_assembly_ratio!="ERR"& num_present_species>0 & UPDATES == 1000) %>% 
+  mutate(adaptive_assembly_ratio = as.numeric(adaptive_assembly_ratio)) %>%
+  ggplot(
+    aes(
+      x=update,
+      y=adaptive_assembly_ratio,
+      color=graph_type
+    )
+  ) + 
+  stat_summary(geom="line", fun=mean) +
+  stat_summary(geom="ribbon", fun="mean_cl_boot", fun.args=list(conf.int=0.95), alpha=0.2, linetype=0) +
+  facet_wrap(~interaction_matrix, ncol=1, scales = "free_y") 
+
+  
+
+```
