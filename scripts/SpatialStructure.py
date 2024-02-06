@@ -127,7 +127,7 @@ def gen_graph_comet_kite(core_size:int, num_tails:int, additional_tail_nodes:int
     # print("Edges: ", graph.edges)
     return graph
 
-def gen_graph_circular_chain(nodes:int):
+def gen_graph_circular_chain(nodes):
     """
     Function generates a cyclic graph.
     Attributes:
@@ -153,7 +153,7 @@ def gen_graph_linear_chain(nodes:int):
     graph.add_edges_from([(i,i + 1) for i in range(nodes-1)])
     return graph
 
-def gen_graph_star(nodes:int):
+def gen_graph_star(nodes):
     """
     Function generates a star graph.
     Attributes:
@@ -163,6 +163,43 @@ def gen_graph_star(nodes:int):
     """
     graph = nx.star_graph(nodes)
     return graph
+
+def gen_graph_windmill(cliques, clique_size):
+    """
+    Function generates a windmill style graph. 
+    Exploring effect of clusters around central node. 
+    Attributes:
+        cliques(int): The number of cliques surrounding the central node. 
+        clique_size(int): The number of nodes in cliques. 
+    Returns:
+        A windmill shaped graph. 
+    """
+    graph = nx.windmill_graph(cliques, clique_size)
+    return graph
+
+
+def gen_graph_cycle(nodes:int):
+    """
+    Function generates a cycle graph.
+    Attributes:
+        nodes(int): The indicated number of nodes in the star.
+    Returns:
+        A cycle shaped graph. 
+    """
+    graph = nx.cycle_graph(nodes)
+    return graph 
+
+def gen_graph_wheel(nodes:int):
+    """
+    Function generates a wheel graph.
+    Attributes:
+        The wheel graph consists of a hub node connected to a cycle of (n-1) nodes (networkx)
+        nodes(int): The indicated number of nodes in the wheel.
+    Returns:
+        A wheel shaped graph. 
+    """
+    graph = nx.wheel_graph(nodes)
+    return graph 
 
 
 def gen_graph_random_erdos_renyi(nodes:int,edge_prob:float, seed:int):
@@ -309,7 +346,7 @@ def main():
         "--type",
         type = str,
         default = "well-mixed",
-        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman", "random-geometric", "edge-swapping", "star"],
+        choices = ["well-mixed", "toroidal-lattice", "comet-kite", "circular-chain", "linear-chain", "random-barabasi-albert", "random-erdos-renyi", "random-waxman", "random-geometric", "edge-swapping", "star", "windmill", "cycle"],
         help = "Type of graph to generate"
     )
     parser.add_argument("--nodes", type = int, default = 100, help = "Number of nodes in graph")
@@ -324,6 +361,8 @@ def main():
     parser.add_argument("--output", type = str, default = "graph.csv", help = "Name of output file")
     parser.add_argument("--beta", type = float, default = 0.4, help = "Model parameter")
     parser.add_argument("--alpha", type = float, default = 0.1, help = "Model parameter")
+    parser.add_argument("--cliques", type = int, default =10, help = "Number of cliques surronding central node.")
+    parser.add_argument("--clique_size", type = int, default = 10, help = "Number of nodes within cliques.")
 
     args = parser.parse_args()
     graph_type = args.type
@@ -379,6 +418,11 @@ def main():
     elif graph_type == "star":
         graph = gen_graph_star(nodes = graph_nodes)
         print(graph)
+    elif graph_type == "cycle":
+        graph = gen_graph_cycle(nodes = graph_nodes)
+        print(graph)
+    elif graph_type == "windmill":
+        graph = gen_graph_windmill(cliques = args.cliques, clique_size= args.clique_size)
     else:
         print("Unrecognized graph type!")
         exit(-1)
