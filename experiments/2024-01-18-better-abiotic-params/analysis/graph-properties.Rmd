@@ -1,0 +1,35 @@
+# Graph property correlations
+
+
+
+## Dependencies and setup
+
+```{r}
+library(tidyverse)
+library(Hmisc)
+```
+
+```{r}
+analysis_path <- "experiments/2024-01-18-better-abiotic-params/analysis"
+data_path <- paste(analysis_path, "data", "world_summary.csv", sep = "/")
+data <- read_csv(data_path)
+```
+
+## Data preprocessing
+
+```{r}
+data <- data %>%
+  mutate(
+    interaction_matrix = as.factor(interaction_matrix),
+    graph_type = as.factor(graph_type),
+    summary_mode = as.factor(summary_mode),
+    update = as.numeric(update),
+    SEED = as.factor(SEED)
+  )
+
+# (1) Filter down to final update
+# (2) For each row, assign graph properties
+# (3) Pivot longer
+# (4) Make giant plots
+
+```
