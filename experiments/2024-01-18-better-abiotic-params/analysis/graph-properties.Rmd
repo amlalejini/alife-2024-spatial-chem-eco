@@ -13,19 +13,43 @@ library(Hmisc)
 analysis_path <- "experiments/2024-01-18-better-abiotic-params/analysis"
 data_path <- paste(analysis_path, "data", "world_summary.csv", sep = "/")
 data <- read_csv(data_path)
+
+graph_prop_path <- paste(analysis_path, "data", "graph-properties.csv", sep = "/")
+graph_properties <- read_csv(graph_prop_path)
 ```
 
 ## Data preprocessing
 
 ```{r}
+
+
+max_update <- max(data$update)
 data <- data %>%
+  filter(update == max_update) %>%
   mutate(
     interaction_matrix = as.factor(interaction_matrix),
     graph_type = as.factor(graph_type),
     summary_mode = as.factor(summary_mode),
     update = as.numeric(update),
-    SEED = as.factor(SEED)
+    SEED = as.factor(SEED),
+    graph_file = str_split_i(DIFFUSION_SPATIAL_STRUCTURE_FILE, "/", -1)
+  ) %>%
+  mutate(
+    graph_file = as.factor(graph_file)
   )
+
+graph_properties <- graph_properties %>%
+  mutate(
+    graph_type = as.factor(graph_type),
+    graph_name = as.factor(graph_name)
+  )
+
+lookup_graph_property <- function(graph_file, property) {
+  graph_info <- graph_properties %>% filter(
+    graph_name == graph_file
+  )
+  return(graph_info[[property]])
+}
 
 # (1) Filter down to final update
 # (2) For each row, assign graph properties
