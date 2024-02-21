@@ -6,20 +6,6 @@ import graph_utilities as graph_utils
 import utilities as utils
 import statistics as stats
 
-'''
-Graph properties:
-- Kromatic number
-- Matching number
-- Clique number / independence number
-- Girth (length of smallest cycle)
-- Longest shortest path
-- Degree
-    - Mean
-    - Median
-    - Variance
-- Density
-'''
-
 def write_csv(output_path, summary_dict):
     # (1) What's the header?
     header = list(summary_dict[0].keys())
