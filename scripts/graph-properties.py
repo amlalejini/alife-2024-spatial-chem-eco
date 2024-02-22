@@ -29,6 +29,9 @@ def write_csv(output_path, summary_dict):
 
 def analyze_graph(graph):
     properties = {}
+
+    # Check connectivity
+    is_connected = nx.is_connected(graph)
     # Density
     properties["density"] = nx.density(graph)
     # Degree (mean, median, variance)
@@ -47,9 +50,9 @@ def analyze_graph(graph):
     properties["avg_node_connectivity"] = nx.average_node_connectivity(graph)
     properties["edge_connectivity"] = nx.edge_connectivity(graph)
     properties["node_connectivity"] = nx.node_connectivity(graph)
-    properties["diameter"] = nx.diameter(graph)
-    properties["radius"] = nx.radius(graph)
-    properties["kemeny_constant"] = nx.kemeny_constant(graph)
+    properties["diameter"] = nx.diameter(graph) if is_connected else "error"
+    properties["radius"] = nx.radius(graph) if is_connected else "error"
+    properties["kemeny_constant"] = nx.kemeny_constant(graph) if is_connected else "error"
     properties["global_efficiency"] = nx.global_efficiency(graph)
     properties["wiener_index"] = nx.wiener_index(graph)
     # properties["small_world_sigma"] = nx.sigma(graph)
