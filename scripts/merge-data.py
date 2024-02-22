@@ -69,8 +69,8 @@ def main():
             print(f"Failed to find {graph_name} from summary data in graph properties file.")
             exit(-1)
         # Append graph properties to summary data row
-        for prop in graph_properties:
-            row[f"grap_prop_{prop}"] = graph_properties[prop]
+        for prop in graph_properties[graph_name]:
+            row[f"graph_prop_{prop}"] = graph_properties[graph_name][prop]
 
     summary_fname = os.path.basename(summary_data_fpath)
     summary_fname = os.path.splitext(summary_fname)[0]
