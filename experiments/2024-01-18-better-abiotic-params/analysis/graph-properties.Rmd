@@ -11,19 +11,21 @@ library(Hmisc)
 
 ```{r}
 analysis_path <- "experiments/2024-01-18-better-abiotic-params/analysis"
-data_path <- paste(analysis_path, "data", "world_summary.csv", sep = "/")
+data_path <- paste(
+  analysis_path,
+  "data",
+  "world_summary_final_update_with-graph-props.csv",
+  sep = "/"
+)
 data <- read_csv(data_path)
 
-graph_prop_path <- paste(analysis_path, "data", "graph-properties.csv", sep = "/")
-graph_properties <- read_csv(graph_prop_path)
 ```
 
 ## Data preprocessing
 
 ```{r}
-
-
 max_update <- max(data$update)
+# (1) Filter down to final update
 data <- data %>%
   filter(update == max_update) %>%
   mutate(
@@ -38,22 +40,195 @@ data <- data %>%
     graph_file = as.factor(graph_file)
   )
 
-graph_properties <- graph_properties %>%
+
+# (2) For each row, assign graph properties
+properties <- c(
+  "graph_prop_density",
+  "graph_prop_degree_mean",
+  "graph_prop_degree_median",
+  "graph_prop_degree_variance",
+  "graph_prop_girth",
+  "graph_prop_degree_assortivity_coef",
+  "graph_prop_num_bridges",
+  "graph_prop_max_clique_size",
+  "graph_prop_transitivity",
+  "graph_prop_avg_clustering",
+  "graph_prop_num_connected_components",
+  "graph_prop_num_articulation_points",
+  "graph_prop_avg_node_connectivity",
+  "graph_prop_edge_connectivity",
+  "graph_prop_node_connectivity",
+  "graph_prop_diameter",
+  "graph_prop_radius",
+  "graph_prop_kemeny_constant",
+  "graph_prop_global_efficiency",
+  "graph_prop_wiener_index"
+)
+
+# (3) Pivot longer
+long_data <- data %>%
   mutate(
-    graph_type = as.factor(graph_type),
-    graph_name = as.factor(graph_name)
+    graph_prop_diameter = case_when(
+      graph_prop_diameter == "error" ~ "-1",
+      .default = graph_prop_diameter
+    ),
+    graph_prop_radius = case_when(
+      graph_prop_radius == "error" ~ "-1",
+      .default = graph_prop_radius
+    ),
+    graph_prop_kemeny_constant = case_when(
+      graph_prop_kemeny_constant == "error" ~ "-1",
+      .default = graph_prop_kemeny_constant
+    )
+  ) %>%
+  mutate(
+    graph_prop_diameter = as.numeric(graph_prop_diameter),
+    graph_prop_radius = as.numeric(graph_prop_radius),
+    graph_prop_kemeny_constant = as.numeric(graph_prop_kemeny_constant)
+  ) %>%
+  select(
+    !c(
+      DIFFUSION_SPATIAL_STRUCTURE_FILE,
+      GROUP_REPRO_SPATIAL_STRUCTURE_FILE,
+      INTERACTION_SOURCE
+    )
+  ) %>%
+  filter(
+    summary_mode == "ranked_threshold"
+  ) %>%
+  pivot_longer(
+    cols = properties,
+    names_to = "graph_property",
+    values_to = "graph_property_value"
+  ) %>%
+  filter(
+    (!is.na(graph_property_value)) & graph_property_value != "Inf"
+  ) %>%
+  mutate(
+    graph_property_value = as.numeric(graph_property_value),
+    graph_property = str_remove(graph_property, "graph_prop_")
+  ) %>%
+  mutate(
+    graph_property = as.factor(graph_property)
+  )
+write_csv(long_data, "test.csv")
+```
+
+## Plot relationships between transitionability and graph properties
+
+```{r}
+
+rel_plot <- long_data %>%
+  # filter(
+  #   graph_property == "density"
+  # ) %>%
+  ggplot(
+    aes(
+      x = graph_property_value,
+      y = logged_mult_score
+    )
+  ) +
+  geom_point(aes(color = graph_type)) +
+  geom_smooth(
+    method = "lm",
+    color = "black"
+  ) +
+  facet_grid(
+    interaction_matrix ~ graph_property,
+    scales = "free"
   )
 
-lookup_graph_property <- function(graph_file, property) {
-  graph_info <- graph_properties %>% filter(
-    graph_name == graph_file
+
+rel_plot
+
+ggsave(
+  plot = rel_plot,
+  filename = "property_relationships.pdf",
+  width = 40,
+  height = 20
+)
+
+```
+
+```{r}
+
+rel_plot <- long_data %>%
+  # filter(
+  #   graph_property == "density"
+  # ) %>%
+  ggplot(
+    aes(
+      x = graph_property_value,
+      y = logged_mult_score
+    )
+  ) +
+  geom_point(aes(color = graph_type)) +
+  geom_smooth(
+    method = "lm",
+    color = "black"
+  ) +
+  facet_wrap(
+    ~ graph_property,
+    nrow = 1,
+    scales = "free"
   )
-  return(graph_info[[property]])
+
+
+rel_plot
+
+ggsave(
+  plot = rel_plot,
+  filename = "property_relationships_comb.pdf",
+  width = 40,
+  height = 10
+)
+
+```
+
+## Measure correlations
+
+```{r}
+# Reference for running correlations over tidy data:
+# https://dominicroye.github.io/en/2019/tidy-correlation-tests-in-r/
+library(broom)
+library(knitr)
+library(kableExtra)
+
+cor_fun <- function(data) {
+  cor.test(
+    data$graph_property_value,
+    data$logged_mult_score,
+    method = "spearman",
+    exact = FALSE
+  ) %>% tidy()
 }
 
-# (1) Filter down to final update
-# (2) For each row, assign graph properties
-# (3) Pivot longer
-# (4) Make giant plots
-
+nested <- long_data %>%
+  select(
+    c(
+      interaction_matrix,
+      graph_property,
+      graph_property_value,
+      logged_mult_score
+    )
+  ) %>%
+  group_by(interaction_matrix, graph_property) %>%
+  nest() %>%
+  mutate(
+    model = map(data, cor_fun)
+  )
+corr <- select(nested, -data) %>% unnest()
+corr <- corr %>%
+  mutate(
+    abs_estimate = abs(estimate)
+  ) %>%
+  arrange(
+    desc(abs_estimate)
+  ) %>%
+  filter(
+    p.value <= 0.05
+  )
+corr_table <- kable(corr) %>%
+  kable_styling(latex_options = "striped")
+save_kable(corr_table, "correlation_table.pdf")
 ```
