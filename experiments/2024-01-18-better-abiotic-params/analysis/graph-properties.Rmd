@@ -185,6 +185,39 @@ ggsave(
 
 ```
 
+```{r}
+rel_plot <- long_data %>%
+  filter(
+    graph_type == "random-waxman" | graph_type == "random-barabasi-albert"
+  ) %>%
+  ggplot(
+    aes(
+      x = graph_property_value,
+      y = logged_mult_score
+    )
+  ) +
+  geom_point(aes(color = graph_type)) +
+  geom_smooth(
+    method = "lm",
+    color = "black"
+  ) +
+  facet_grid(
+    interaction_matrix ~ graph_property,
+    scales = "free"
+  )
+
+
+rel_plot
+
+ggsave(
+  plot = rel_plot,
+  filename = "property_relationships_rand.pdf",
+  width = 40,
+  height = 20
+)
+
+```
+
 ## Measure correlations
 
 ```{r}
