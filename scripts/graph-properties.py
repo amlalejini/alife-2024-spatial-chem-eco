@@ -54,6 +54,12 @@ def analyze_graph(graph):
     properties["wiener_index"] = nx.wiener_index(graph)
     # properties["small_world_sigma"] = nx.sigma(graph)
     # properties["small_world_omega"] = nx.omega(graph)
+
+    #Recent additions 
+    properties["longest_shortest_path"] = nx.all_pairs_shortest_path(graph)
+    properties["connectivity"] = nx.all_pairs_node_connectivity(graph)
+
+
     return properties
 
 def main():
