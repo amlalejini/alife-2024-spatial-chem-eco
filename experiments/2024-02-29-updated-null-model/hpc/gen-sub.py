@@ -70,7 +70,7 @@ combos.add_val(
         "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-well-mixed.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-well-mixed.mat",
         "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-barabasi-albert_${SLURM_ARRAY_TASK_ID}.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-barabasi-albert_${SLURM_ARRAY_TASK_ID}.mat",
         "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-random-waxman_${SLURM_ARRAY_TASK_ID}.mat",
-        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-graph-cycle.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-cycle.mat",
+        "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-cycle.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-cycle.mat",
         "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-wheel.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-wheel.mat",
         "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-star.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-star.mat",
         "-GROUP_REPRO_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-windmill.mat -DIFFUSION_SPATIAL_STRUCTURE_FILE ${CONFIG_DIR}/spatial-structures/graph-windmill.mat"
