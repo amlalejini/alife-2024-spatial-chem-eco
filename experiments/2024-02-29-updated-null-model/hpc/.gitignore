@@ -1,0 +1,5 @@
+test/
+!config/interaction-matrices/*.csv
+!config/graph-*.csv
+!config/graph-*.mat
+!config/*.cfg
