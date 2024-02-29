@@ -58,10 +58,11 @@ def analyze_graph(graph):
     # properties["small_world_sigma"] = nx.sigma(graph)
     # properties["small_world_omega"] = nx.omega(graph)
 
-    #Recent additions 
-    properties["longest_shortest_path"] = nx.all_pairs_shortest_path(graph)
-    properties["connectivity"] = nx.all_pairs_node_connectivity(graph)
-
+    #Recent additions
+    length_results = nx.all_pairs_shortest_path_length(graph)
+    max_short_path = max([max(focal_node[1].values()) for focal_node in length_results])
+    properties["longest_shortest_path"] = max_short_path
+    # properties["connectivity"] = nx.all_pairs_node_connectivity(graph)
 
     return properties
 
