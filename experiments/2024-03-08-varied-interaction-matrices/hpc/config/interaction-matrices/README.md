@@ -1,0 +1,3 @@
+- cXXpipYY.dat: connectance (c) and positive interaction proportion (pip)
+- XX_diet-composition.csv: Derived from realistic food webs
+- classXX.dat: Evolved matrices, optimized for transitionability
