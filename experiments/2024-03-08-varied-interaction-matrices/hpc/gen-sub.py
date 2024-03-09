@@ -87,7 +87,7 @@ combos.add_val(
     "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/c75pip25.dat",
     "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/c75pip50.dat",
     "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/c75pip75.dat",
-    "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/orig-pof.dat"
+    "-N_TYPES 9 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/orig-pof.dat"
    ]
 )
 
