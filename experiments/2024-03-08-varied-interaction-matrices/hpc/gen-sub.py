@@ -29,9 +29,8 @@ base_script_filename = "./base_slurm_script.txt"
 
 # Create combo object to collect all conditions we'll run
 combos = CombinationCollector()
-#-DIFFUSION 1 -SEEDING_PROB 0.681 -PROB_CLEAR 0
 fixed_parameters = {
-    "UPDATES": "5000",
+    "UPDATES": "20000",
     "MAX_POP": "10000",
     "V": "0",
     "DIFFUSION": "0.05",
@@ -50,7 +49,8 @@ fixed_parameters = {
     "OUTPUT_RESOLUTION": "20",
     "THRESHOLD_VALUE": "10",
     "RECORD_ASSEMBLY_MODEL": "1",
-    "RECORD_ADAPTIVE_MODEL": "1"
+    "RECORD_ADAPTIVE_MODEL": "1",
+    "GROUP_REPRO": "0"
 }
 
 special_decorators = [
@@ -87,6 +87,7 @@ combos.add_val(
     "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/c75pip25.dat",
     "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/c75pip50.dat",
     "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/c75pip75.dat"
+    "-N_TYPES 10 -INTERACTION_SOURCE ${CONFIG_DIR}/interaction-matrices/orig-pof.dat"
    ]
 )
 
