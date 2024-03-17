@@ -290,14 +290,17 @@ ggsave(
 For reference, a table of means and medians.
 
 ```{r}
-summary_table <- rt_final_data %>%
+
+summary_data <- rt_final_data %>%
   dplyr::group_by(interaction_matrix, graph_type) %>%
   dplyr::summarize(
     score_median = median(logged_mult_score),
     score_mean = mean(logged_mult_score),
     replicates = n()
   ) %>%
-  arrange(score_median, .by_group = TRUE) %>%
+  arrange(score_median, .by_group = TRUE)
+
+summary_table <- summary_data %>%
   kable() %>%
   kable_styling(
     latex_options = "striped"
@@ -326,7 +329,7 @@ kw_test <- rt_final_data %>%
   mutate(sig = (p < 0.05))
 
 kable(kw_test)
-# kw_test
+kw_test
 ```
 
 Next, perform pairwise wilcoxon rank-sum tests for all significant comparison groups.
@@ -381,3 +384,211 @@ save_kable(
   )
 )
 ```
+
+For each spatial structure, identify promoters / repressors
+
+```{r}
+int_matrices <- unique(as.character(wrs_test$interaction_matrix))
+
+well_mixed_comps <- wrs_test %>%
+  filter(group1 == "well-mixed" | group2 == "well-mixed") %>%
+  mutate(
+    non_wm_graph = case_when(
+      group1 == "well-mixed" ~ group2,
+      group2 == "well-mixed" ~ group1
+    )
+  )
+
+non_wm_graph_types <- unique(as.character(well_mixed_comps$non_wm_graph))
+
+spatial_struct_effects <- data.frame(
+  interaction_matrix = character(),
+  graph_type = character(),
+  effect = character(),
+  wm_median_score = numeric(),
+  graph_median_score = numeric(),
+  sig = logical()
+)
+
+# Identify promotors (significant and > well-mixed)
+# Identify represssors (significant and < well-mixed)
+# Neither (not significant)
+# The output of this loop is sanity-checked against statistical results table.
+for (interaction_mat in int_matrices) {
+  # Get median score for well-mixed
+  wm_median_score <- filter(
+    summary_data,
+    graph_type == "well-mixed" & interaction_matrix == interaction_mat
+  )$score_median[[1]]
+  # Get relevent wilcoxon rank-sum comparisons
+  im_comps <- well_mixed_comps %>%
+    filter(interaction_matrix == interaction_mat)
+  for (graph in non_wm_graph_types) {
+    graph_median_score <- filter(
+      summary_data,
+      graph_type == graph & interaction_matrix == interaction_mat
+    )$score_median[[1]]
+    comp_info <- filter(im_comps, non_wm_graph == graph)
+    sig <- comp_info$p.adj[[1]] < 0.05
+    effect <- "unknown"
+    if (sig && graph_median_score < wm_median_score) {
+      effect <- "suppressor"
+    } else if (sig && graph_median_score > wm_median_score) {
+      effect <- "promoter"
+    } else {
+      effect <- "neither"
+    }
+    spatial_struct_effects <- add_row(
+      spatial_struct_effects,
+      interaction_matrix = interaction_mat,
+      graph_type = graph,
+      effect = effect,
+      wm_median_score = wm_median_score,
+      graph_median_score = graph_median_score,
+      sig = sig
+    )
+  }
+}
+
+effect_table <- spatial_struct_effects %>%
+  kable() %>%
+  kable_styling(
+    latex_options = "striped"
+  )
+
+save_kable(
+  effect_table,
+  paste(
+    analysis_path,
+    "plots",
+    paste0("spatial_struct_effect_table.pdf"),
+    sep = "/"
+  )
+)
+
+for (im in interaction_matrices) {
+  max_promoter <- max(
+    filter(spatial_struct_effects, interaction_matrix == im & effect == "promoter")$graph_median_score
+  )
+  max_suppressor <- min(
+    filter(spatial_struct_effects, interaction_matrix == im & effect == "suppressor")$graph_median_score
+  )
+
+  im_effects <- spatial_struct_effects %>%
+    filter(interaction_matrix == im) %>%
+    mutate(
+      max_promoter = graph_median_score == max_promoter,
+      max_suppressor = graph_median_score == max_suppressor
+    ) %>%
+    arrange(effect)
+
+
+  # Identify biggest suppressor / promoter
+
+  table <- im_effects %>%
+    kable() %>%
+    kable_styling(
+      latex_options = "striped"
+    )
+
+  save_kable(
+    table,
+    paste(
+      analysis_path,
+      "plots",
+      paste0("spatial_struct_effect_table_", im, ".pdf"),
+      sep = "/"
+    )
+  )
+
+}
+```
+
+Count the distribution of effects each graph type is categorized with
+
+```{r}
+effect_counts <- spatial_struct_effects %>%
+  mutate(
+    effect = as.factor(effect),
+    graph_type = as.factor(graph_type)
+  ) %>%
+  group_by(graph_type, effect) %>%
+  dplyr::summarize(
+    n = n()
+  )
+
+table <- effect_counts %>%
+  kable() %>%
+  kable_styling(
+    latex_options = "striped"
+  )
+
+save_kable(
+  table,
+  paste(
+    analysis_path,
+    "plots",
+    paste0("spatial_struct_effect_counts.pdf"),
+    sep = "/"
+  )
+)
+
+
+graph_ticks <- c("toroidal-lattice", "linear-chain", "cycle", "wheel", "star", "windmill", "comet-kite", "random-barabasi-albert", "random-waxman")
+graph_labels <- c("Toroidal lattice", "Linear chain", "Cycle", "Wheel", "Star", "Windmill", "Comet-kite", "Barabasi-Albert", "Waxman")
+
+effect_counts_fig <- effect_counts %>%
+  ggplot(
+    aes(
+      fill = effect,
+      x = graph_type,
+      y = n
+    )
+  ) +
+  geom_bar(
+    position = "stack",
+    stat = "identity"
+  ) +
+  geom_text(
+    aes(label = n),
+    position = position_stack(vjust = 0.5),
+    size = 10,
+    color = "white"
+  ) +
+  scale_fill_highcontrast(
+    name = "Effect:",
+    # limits = c("neither", "promoter", "suppressor"),
+    # labels = c("Neither", "Promoter", "Suppressor")
+    limits = c("suppressor", "promoter", "neither"),
+    labels = c("Suppressor", "Promoter", "Neither"),
+    reverse = TRUE
+  ) +
+  scale_x_discrete(
+    name = "Spatial Structure",
+    limits = graph_ticks,
+    breaks = graph_ticks,
+    labels = graph_labels
+  ) +
+  scale_y_continuous(
+    name = "Count",
+    limits = c(0, 9),
+    breaks = c(0, 3, 6, 9)
+  ) +
+  coord_flip() +
+  theme(
+    legend.position = "bottom"
+  )
+effect_counts_fig
+ggsave(
+  paste(
+    analysis_path,
+    "plots",
+    "spatial_structure_effect_distributions.pdf",
+    sep = "/"
+  ),
+  plot = effect_counts_fig,
+  width = 6,
+  height = 6
+)
+```
+
