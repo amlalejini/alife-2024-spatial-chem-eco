@@ -225,11 +225,12 @@ plot_final <- ggplot(
       fill = graph_type
     )
   ) +
-  # geom_flat_violin(
-  #   position = position_nudge(x = .2, y = 0),
-  #   alpha = .8,
-  #   adjust = 1.5
-  # ) +
+  geom_hline(
+    yintercept = 0,
+    color = "red",
+    linetype = "solid",
+    alpha = 0.65
+  ) +
   geom_point(
     mapping = aes(color = graph_type),
     position = position_jitter(width = .15),
@@ -552,15 +553,13 @@ effect_counts_fig <- effect_counts %>%
   geom_text(
     aes(label = n),
     position = position_stack(vjust = 0.5),
-    size = 10,
+    size = 8,
     color = "white"
   ) +
   scale_fill_highcontrast(
     name = "Effect:",
-    # limits = c("neither", "promoter", "suppressor"),
-    # labels = c("Neither", "Promoter", "Suppressor")
     limits = c("suppressor", "promoter", "neither"),
-    labels = c("Suppressor", "Promoter", "Neither"),
+    labels = c("Suppressor", "Amplifier", "Neither"),
     reverse = TRUE
   ) +
   scale_x_discrete(
@@ -579,6 +578,7 @@ effect_counts_fig <- effect_counts %>%
     legend.position = "bottom"
   )
 effect_counts_fig
+
 ggsave(
   paste(
     analysis_path,
@@ -588,7 +588,7 @@ ggsave(
   ),
   plot = effect_counts_fig,
   width = 6,
-  height = 6
+  height = 4
 )
 ```
 
