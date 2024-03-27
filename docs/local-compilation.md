@@ -3,8 +3,8 @@
 You will need a C++ compiler that supports at least C++17.
 We used g++13 for all local compilations.
 
-First, clone the `alife-2024-env-connectivity-influences-origins-of-adaptive-processes` repository, which contains the code needed to run our experiment software:
-<https://github.com/amlalejini/alife-2024-env-connectivity-influences-origins-of-adaptive-processes.git>
+First, clone the `alife-2024-spatial-chem-eco` repository, which contains the code needed to run our experiment software:
+<https://github.com/amlalejini/alife-2024-spatial-chem-eco>
 
 Once cloned, `cd` into your local repository directory.
 Then, initialize and update all of the git submodules:
@@ -36,4 +36,14 @@ Once you have an executable, you can generate a configuration file by running:
 
 You may also use the configuration files from any of our experiments, which can be found in the `experiments` directory.
 
+## Python dependencies
+
+Many of the scripts that we used to manage experiments on our computing cluster, aggregate data, and run analyses are written in Python.
+The dependencies for these scripts are given in the `requirements.txt` file.
+We recommend setting up a Python virtual environment and installing the dependencies there:
+
+```
+python -m venv pyenv
+pip install -r requirements
+```
 
