@@ -3,6 +3,9 @@
 This directory contains the configuration and analysis files for our experiments.
 Much of the infrastructure included here for running the experiments assumes the architecture of Michigan State University's HPC.
 
+The `2024-03-08-varied-interaction-matrices` experiment represents our final set of experiments included in our ALife 2024 submission.
+All prior experiments were exploratory while developing the model.
+
 ## Steps for running an experiment on the HPC
 
 Before running, make sure that you have the `chemical-ecology.cfg`, all graph files, and any other run configuration files necessary inside the `hpc/config/` directory (inside the experiment directory).
