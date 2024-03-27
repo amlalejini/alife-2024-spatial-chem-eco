@@ -1,23 +1,60 @@
-# 2024-03-08 Experiment analysis
+# Community transitionability analyses
 
 ## Dependencies and setup
 
 ```{r}
 library(tidyverse)
-library(ggplot2)
 library(cowplot)
 library(RColorBrewer)
 library(khroma)
 library(rstatix)
 library(knitr)
 library(kableExtra)
+library(ggh4x)
 source("https://gist.githubusercontent.com/benmarwick/2a1bb0133ff568cbe28d/raw/fb53bd97121f7f9ce947837ef1a4c65a73bffb3f/geom_flat_violin.R")
 ```
 
 ```{r}
-analysis_path <- "experiments/2024-03-08-varied-interaction-matrices/analysis"
-data_path <- paste(analysis_path, "data", "world_summary.csv", sep = "/")
+# Check if Rmd is being compiled using bookdown
+bookdown <- exists("bookdown_build")
+```
+
+```{r}
+experiment_slug <- "2024-03-08-varied-interaction-matrices"
+working_directory <- paste(
+  "experiments",
+  experiment_slug,
+  "analysis",
+  sep = "/"
+)
+# Adjust working directory if being knitted for bookdown build.
+if (bookdown) {
+  working_directory <- paste0(
+    bookdown_wd_prefix,
+    working_directory
+  )
+}
+
+plot_dir <- paste(
+  working_directory,
+  "plots",
+  sep = "/"
+)
+
+# Load summary data from final update
+data_path <- paste(
+  working_directory,
+  "data",
+  "world_summary_final_update.csv",
+  sep = "/"
+)
 data <- read_csv(data_path)
+```
+
+Set cowplot theme as default plotting theme.
+
+```{r}
+theme_set(theme_cowplot())
 ```
 
 ## Data preprocessing
@@ -33,6 +70,7 @@ data <- data %>%
   )
 
 # Separate proof-of-concept runs from other interaction matrics
+# (we don't use the proof-of-concept in our analyses)
 poc_data <- data %>% filter(interaction_matrix == "orig-pof")
 data <- data %>%
   filter(interaction_matrix != "orig-pof") %>%
@@ -53,146 +91,18 @@ data <- data %>%
     im_pip = as.factor(im_pip)
   )
 
+# Ensure that we're isolating values from end-of-simulation.
 max_update <- max(data$update)
 final_update_data <- data %>%
   filter(update == max_update)
-# write_csv(final_update_data, paste(analysis_path, "data", "world_summary_final_update.csv", sep="/"))
-
 ```
 
-```{r}
-theme_set(theme_cowplot())
-```
+There are several different summarization methods supported by the chemical ecology model software.
+Here, we use the ranked-threshold metric.
 
 ```{r}
-plot_time_series <- function(plt_data, summary_md, interaction_mat) {
-
-  pd <- plt_data %>% filter(
-    summary_mode == summary_md & interaction_matrix == interaction_mat
-  )
-
-  plot <- pd %>%
-    ggplot(
-      aes(
-        x = update,
-        y = logged_mult_score,
-        color = graph_type,
-        fill = graph_type
-      )
-    ) +
-    stat_summary(geom="line", fun="mean") +
-    stat_summary(
-      geom="ribbon",
-      fun.data="mean_cl_boot",
-      fun.args=list(conf.int=0.95),
-      alpha=0.2,
-      linetype=0
-    ) +
-    labs(title=interaction_mat)
-
-  return(plot)
-}
-```
-
-## Visualize transitionability scores over time
-
-First, `logged_mult_score`:
-
-```{r}
-
-data <- data %>% filter((update %% 100) == 0)
-
-plot <- plot_time_series(data, "ranked_threshold", "c25pip25")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c25pip25_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-
-plot <- plot_time_series(data, "ranked_threshold", "c25pip50")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c25pip50_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-
-plot <- plot_time_series(data, "ranked_threshold", "c25pip75")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c25pip75_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-```
-
-```{r}
-plot <- plot_time_series(data, "ranked_threshold", "c50pip25")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c50pip25_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-
-plot <- plot_time_series(data, "ranked_threshold", "c50pip50")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c50pip50_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-
-plot <- plot_time_series(data, "ranked_threshold", "c50pip75")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c50pip75_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-```
-
-```{r}
-plot <- plot_time_series(data, "ranked_threshold", "c75pip25")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c75pip25_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-
-plot <- plot_time_series(data, "ranked_threshold", "c75pip50")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c75pip50_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-
-plot <- plot_time_series(data, "ranked_threshold", "c75pip75")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "c75pip75_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot
-)
-```
-
-```{r}
-plot <- plot_time_series(filter(poc_data, (update%%100)==0), "ranked_threshold", "orig-pof")
-# plot
-ggsave(
-  paste(analysis_path, "plots", "poc_ranked_thresh_logged_mult_score.pdf", sep="/"),
-  plot = plot + ggtitle("POC")
-)
-
-
-
-summary(filter(poc_data, update==max_update & graph_type == "star" & summary_mode == "ranked_threshold")$logged_mult_score)
-```
-
-### Final update
-
-```{r}
-library(ggh4x)
 rt_final_data <- final_update_data %>%
   filter(summary_mode == "ranked_threshold")
-
-```
-
-```{r}
 
 rt_final_data <- rt_final_data %>%
   mutate(
@@ -207,15 +117,53 @@ rt_final_data <- rt_final_data %>%
       im_pip == "75" ~ "0.75"
     )
   )
+```
 
+Calculate the median transitionability score (`logged_mult_score`) for each well-mixed regime.
+
+```{r}
 wm_median <- rt_final_data %>%
   filter(graph_type == "well-mixed") %>%
-  # group_by(interaction_matrix, im_connectance, im_pip) %>%
-  group_by(interaction_matrix, Connectance, PIP) %>%
+  dplyr::group_by(interaction_matrix, Connectance, PIP) %>%
   dplyr::summarize(wm_median = median(logged_mult_score))
+```
 
-graph_ticks <- c("well-mixed", "toroidal-lattice", "linear-chain", "cycle", "wheel", "star", "windmill", "comet-kite", "random-barabasi-albert", "random-waxman")
-graph_labels <- c("Well mixed", "Toroidal lattice", "Linear chain", "Cycle", "Wheel", "Star", "Windmill", "Comet-kite", "Barabasi-Albert", "Waxman")
+## Final transitionability scores
+
+We visualize the final community transitionability scores (`logged_mult_score`) for each spatial structure regime across for each interaction network.
+For each interaction matric, we draw a vertical dashed line (black) to indicate median transitionability score achived in the well-mixed regime.
+This value serves as the baseline expectation in the absence of spatial structure.
+
+Additionally, we draw a solid vertical line (red) to indicate 0 on the transitionability score axis.
+Transitionability scores greater than zero indicate that a community exhibited dynamics more closely resembling pure adaptive dynamics than pure ecological dynamics.
+Transitionability scores less than zero indicate that a community exhibited dynamics more closely resembling pure ecological dynamics than pure adaptive dynamics.
+
+```{r}
+# Provide explicit ordering for graph ticks/labels
+graph_ticks <- c(
+  "well-mixed",
+  "toroidal-lattice",
+  "linear-chain",
+  "cycle",
+  "wheel",
+  "star",
+  "windmill",
+  "comet-kite",
+  "random-barabasi-albert",
+  "random-waxman"
+)
+graph_labels <- c(
+  "Well mixed",
+  "Toroidal lattice",
+  "Linear chain",
+  "Cycle",
+  "Wheel",
+  "Star",
+  "Windmill",
+  "Comet-kite",
+  "Barabasi-Albert",
+  "Waxman"
+)
 
 plot_final <- ggplot(
     rt_final_data,
@@ -238,7 +186,6 @@ plot_final <- ggplot(
     alpha = 0.8
   ) +
   geom_boxplot(
-    # width = .1,
     outlier.shape = NA,
     alpha = 0.5
   ) +
@@ -261,7 +208,6 @@ plot_final <- ggplot(
   ggh4x::facet_grid2(
     Connectance ~ PIP,
     labeller = label_both
-    # independent = "y"
   ) +
   coord_flip() +
   theme(
@@ -272,11 +218,10 @@ plot_final <- ggplot(
     ),
     panel.border = element_rect(color = "gray", size = 2)
   )
-# plot_final
+
 ggsave(
   paste(
-    analysis_path,
-    "plots",
+    plot_dir,
     "final_ranked_thresh_logged_mult_score.pdf",
     sep = "/"
   ),
@@ -284,14 +229,13 @@ ggsave(
   width = 8.5,
   height = 8
 )
+
+plot_final
 ```
 
-<!-- TODO - stats -->
-
-For reference, a table of means and medians.
+For reference, we generate a table of mean and median transitionability scores per-regime per-experiment:
 
 ```{r}
-
 summary_data <- rt_final_data %>%
   dplyr::group_by(interaction_matrix, graph_type) %>%
   dplyr::summarize(
@@ -306,22 +250,20 @@ summary_table <- summary_data %>%
   kable_styling(
     latex_options = "striped"
   )
-summary_table
-# summary_table
-
 save_kable(
   summary_table,
   paste(
-    analysis_path,
-    "plots",
-    paste0("summary_table.pdf"),
+    plot_dir,
+    "summary_table.pdf",
     sep = "/"
   )
 )
+summary_table
 ```
 
+### Statistical analyses
 
-First, a Kruskal-Wallis test (per-interaction matrix) to test for significant differences in distributions across spatial structures.
+First, a Kruskal-Wallis test (per-interaction matrix) to test for significant differences in distributions across spatial structure regimes.
 
 ```{r}
 kw_test <- rt_final_data %>%
@@ -329,16 +271,29 @@ kw_test <- rt_final_data %>%
   kruskal_test(logged_mult_score ~ graph_type) %>%
   mutate(sig = (p < 0.05))
 
-kable(kw_test)
-kw_test
+kw_table <- kw_test %>%
+  kable() %>%
+  kable_styling(
+    latex_options = "striped"
+  )
+save_kable(
+  kw_table,
+  paste(
+    plot_dir,
+    "kw_test_results.pdf",
+    sep = "/"
+  )
+)
+kw_table
 ```
 
-Next, perform pairwise wilcoxon rank-sum tests for all significant comparison groups.
+Next, we perform pairwise Wilcoxon rank-sum tests for all significant comparison groups.
+We use a Holm-Bonferroni correction for multiple comparisons.
 
 ```{r}
 # Grab group names of significant comparisons
 sig_kw_groups <- filter(kw_test, p < 0.05)$interaction_matrix
-
+# Perform pairwise rank-sum tests, adjust for multiple comparisons
 wrs_test <- rt_final_data %>%
   filter(
     interaction_matrix %in% sig_kw_groups
@@ -347,25 +302,31 @@ wrs_test <- rt_final_data %>%
   pairwise_wilcox_test(logged_mult_score ~ graph_type) %>%
   adjust_pvalue(method = "holm") %>%
   add_significance("p.adj")
-
+# Build a pretty table
 wrs_test_table <- kable(wrs_test) %>%
   kable_styling(
     latex_options = "striped"
   )
-wrs_test_table
-
 save_kable(
   wrs_test_table,
   paste(
-    analysis_path,
-    "plots",
-    paste0("wrs_test_results.pdf"),
+    plot_dir,
+    "wrs_test_results.pdf",
     sep = "/"
   )
 )
+wrs_test_table
 ```
 
-Filter pairwise tests to just well-mixed.
+## Identify amplifiers or suppressors
+
+Next, we categorize each spatial structure as an amplifier or suppressor based on
+its transitionability score relative to the well-mixed regime.
+Spatial structure regimes with scores that are greater than well-mixed (statistically significant) are categorized as amplifiers.
+Spatial structure regimes with scores that are lower than well-mixed (statistically significant) are categorized as suppressors.
+If we failed to detect a statistically significant difference between a spatial structure and well-mixed, we categorized it as "neither".
+
+First, filter the pairwise tests to just those that involve the well-mixed regime.
 
 ```{r}
 wm_wrs_test_table <- wrs_test %>%
@@ -374,7 +335,6 @@ wm_wrs_test_table <- wrs_test %>%
   kable_styling(
     latex_options = "striped"
   )
-
 save_kable(
   wm_wrs_test_table,
   paste(
@@ -384,13 +344,13 @@ save_kable(
     sep = "/"
   )
 )
+wm_wrs_test_table
 ```
 
-For each spatial structure, identify promoters / repressors
+For each spatial structure, identify amplifiers and suppressors.
 
 ```{r}
 int_matrices <- unique(as.character(wrs_test$interaction_matrix))
-
 well_mixed_comps <- wrs_test %>%
   filter(group1 == "well-mixed" | group2 == "well-mixed") %>%
   mutate(
@@ -399,7 +359,6 @@ well_mixed_comps <- wrs_test %>%
       group2 == "well-mixed" ~ group1
     )
   )
-
 non_wm_graph_types <- unique(as.character(well_mixed_comps$non_wm_graph))
 
 spatial_struct_effects <- data.frame(
@@ -467,12 +426,25 @@ save_kable(
   )
 )
 
+effect_table
+```
+
+Break effects down by interaction matrix (experiment).
+Arrange in order of effect-size.
+
+```{r}
 for (im in interaction_matrices) {
   max_promoter <- max(
-    filter(spatial_struct_effects, interaction_matrix == im & effect == "promoter")$graph_median_score
+    filter(
+      spatial_struct_effects,
+      interaction_matrix == im & effect == "promoter"
+    )$graph_median_score
   )
   max_suppressor <- min(
-    filter(spatial_struct_effects, interaction_matrix == im & effect == "suppressor")$graph_median_score
+    filter(
+      spatial_struct_effects,
+      interaction_matrix == im & effect == "suppressor"
+    )$graph_median_score
   )
 
   im_effects <- spatial_struct_effects %>%
@@ -483,9 +455,7 @@ for (im in interaction_matrices) {
     ) %>%
     arrange(effect)
 
-
   # Identify biggest suppressor / promoter
-
   table <- im_effects %>%
     kable() %>%
     kable_styling(
@@ -501,11 +471,12 @@ for (im in interaction_matrices) {
       sep = "/"
     )
   )
-
 }
 ```
 
-Count the distribution of effects each graph type is categorized with
+### Distribution of effects for each spatial structure type
+
+Count the distribution of effects each graph type is categorized with.
 
 ```{r}
 effect_counts <- spatial_struct_effects %>%
@@ -533,10 +504,34 @@ save_kable(
     sep = "/"
   )
 )
+```
 
+Visualize:
 
-graph_ticks <- c("toroidal-lattice", "linear-chain", "cycle", "wheel", "star", "windmill", "comet-kite", "random-barabasi-albert", "random-waxman")
-graph_labels <- c("Toroidal lattice", "Linear chain", "Cycle", "Wheel", "Star", "Windmill", "Comet-kite", "Barabasi-Albert", "Waxman")
+```{r}
+# Manually set ordering for plot:
+graph_ticks <- c(
+  "toroidal-lattice",
+  "linear-chain",
+  "cycle",
+  "wheel",
+  "star",
+  "windmill",
+  "comet-kite",
+  "random-barabasi-albert",
+  "random-waxman"
+)
+graph_labels <- c(
+  "Toroidal lattice",
+  "Linear chain",
+  "Cycle",
+  "Wheel",
+  "Star",
+  "Windmill",
+  "Comet-kite",
+  "Barabasi-Albert",
+  "Waxman"
+)
 
 effect_counts_fig <- effect_counts %>%
   ggplot(
@@ -577,7 +572,6 @@ effect_counts_fig <- effect_counts %>%
   theme(
     legend.position = "bottom"
   )
-effect_counts_fig
 
 ggsave(
   paste(
@@ -590,5 +584,7 @@ ggsave(
   width = 6,
   height = 4
 )
+
+effect_counts_fig
 ```
 
