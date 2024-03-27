@@ -1,0 +1,52 @@
+---
+title: "Supplemental Material for Environmental connectivity influences the origination of adaptive processes"
+author: "John Shea, Sydney Leither, Max Foreback, Emily Dolson, and Alexander Lalejini"
+date: "`r Sys.Date()`"
+output: bookdown::gitbook
+documentclass: book
+bibliography: ["packages.bib", "supplemental.bib"]
+biblio-style: apalike
+nocite: '@*'
+link-citations: yes
+github-repo: amlalejini/alife-2024-spatial-chem-eco
+description: "Supplemental material"
+---
+
+```{r, include=FALSE}
+bookdown_wd_prefix <- "../"
+```
+
+# Introduction
+
+This is the supplemental material for our manuscript submitted to the 2024 Artificial Life Conference.
+This is not intended as a stand-alone document, but as a companion to our main manuscript.
+
+## About our supplemental material
+
+As you may have noticed (unless you're reading a pdf version of this), our supplemental material is hosted using [GitHub pages](https://pages.github.com/).
+We compiled our data analyses and supplemental documentation into this web-accessible book using [bookdown](https://bookdown.org).
+
+The source code and configuration files for this supplemental material can be found in [this GitHub repository](https://github.com/amlalejini/alife-2024-spatial-chem-eco).
+
+Our supplemental material includes the following:
+
+- Data availability
+  (Section \@ref(data-availability))
+- Local compilation instructions
+  (Section \@ref(local-compilation))
+- Graphs
+  (Section \@ref(graph-structures))
+- Graph properties
+  (Section \@ref(graph-properties))
+- Summary of literature review on how different spatial structures affect evolutionary adaptation
+  (Section \@ref(summary-of-spatial-structure-effects-on-evolutionary-adaptation))
+- TODO - transitionability score analysis
+- TODO - graph properties analysis
+
+## Contributing authors
+
+- [John Shea](https://github.com/John-Shea)
+- [Sydney Leither](https://github.com/sydleither)
+- [Max Foreback](https://github.com/Max-Foreback)
+- [Emily Dolson](https://ecodelab.com/)
+- [Alexander Lalejini](https://lalejini.com)
