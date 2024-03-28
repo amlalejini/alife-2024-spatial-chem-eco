@@ -1,31 +1,64 @@
 # Graph property correlations
 
+We screened for graph properties correlated with community transitionability scores.
 
 ## Dependencies and setup
 
 ```{r}
 library(tidyverse)
 library(Hmisc)
+library(broom)
+library(knitr)
+library(kableExtra)
 ```
 
 ```{r}
-analysis_path <- "experiments/2024-03-08-varied-interaction-matrices/analysis"
+# Check if Rmd is being compiled using bookdown
+bookdown <- exists("bookdown_build")
+```
+
+```{r}
+experiment_slug <- "2024-03-08-varied-interaction-matrices"
+working_directory <- paste(
+  "experiments",
+  experiment_slug,
+  "analysis",
+  sep = "/"
+)
+# Adjust working directory if being knitted for bookdown build.
+if (bookdown) {
+  working_directory <- paste0(
+    bookdown_wd_prefix,
+    working_directory
+  )
+}
+
+plot_dir <- paste(
+  working_directory,
+  "plots",
+  sep = "/"
+)
+
 data_path <- paste(
-  analysis_path,
+  working_directory,
   "data",
   "world_summary_final_update_with-graph-props.csv",
-  # "world_summary.csv",
   sep = "/"
 )
 data <- read_csv(data_path)
+```
 
+Set cowplot theme as default plotting theme.
+
+```{r}
+theme_set(theme_cowplot())
 ```
 
 ## Data preprocessing
 
 ```{r}
 max_update <- max(data$update)
-# (1) Filter down to final update
+# Ensure that we just have measurements from final update.
 data <- data %>%
   filter(update == max_update) %>%
   mutate(
@@ -39,10 +72,12 @@ data <- data %>%
   mutate(
     graph_file = as.factor(graph_file)
   )
-# write_csv(data, "world_summary_final_update.csv")
+# write_csv(
+#   data,
+#   "world_summary_final_update.csv"
+# )
 
-
-# (2) For each row, assign graph properties
+# For each row, assign graph properties
 properties <- c(
   "graph_prop_density",
   "graph_prop_degree_mean",
@@ -104,7 +139,10 @@ long_data <- data %>%
     values_to = "graph_property_value"
   ) %>%
   filter(
-    (!is.na(graph_property_value)) & graph_property_value != "Inf"
+    (!is.na(graph_property_value)) & graph_property_value != "Inf" &
+    (!(graph_property == "graph_prop_diameter" & (graph_property_value == "-1"))) &
+    (!(graph_property == "graph_prop_radius" & (graph_property_value == "-1"))) &
+    (!(graph_property == "graph_prop_kemeny_constant" & (graph_property_value == "-1")))
   ) %>%
   mutate(
     graph_property_value = as.numeric(graph_property_value),
@@ -119,11 +157,7 @@ long_data <- data %>%
 ## Plot relationships between transitionability and graph properties
 
 ```{r}
-
 rel_plot <- long_data %>%
-  # filter(
-  #   graph_property == "density"
-  # ) %>%
   ggplot(
     aes(
       x = graph_property_value,
@@ -140,55 +174,13 @@ rel_plot <- long_data %>%
     scales = "free"
   )
 
-
 rel_plot
 
 ggsave(
   plot = rel_plot,
   filename = paste(
-    analysis_path,
-    "plots",
+    plot_dir,
     "property_relationships.pdf",
-    sep = "/"
-  ),
-  width = 40,
-  height = 20
-)
-
-```
-
-
-```{r}
-rel_plot <- long_data %>%
-  filter(
-    graph_type == "random-waxman" | graph_type == "random-barabasi-albert"
-  ) %>%
-  ggplot(
-    aes(
-      x = graph_property_value,
-      y = logged_mult_score
-    )
-  ) +
-  geom_point(aes(color = graph_type)) +
-  geom_smooth(
-    method = "lm",
-    color = "black"
-  ) +
-  facet_grid(
-    interaction_matrix ~ graph_property,
-    scales = "free"
-  )
-
-
-rel_plot
-
-ggsave(
-  plot = rel_plot,
-  # filename = "property_relationships_rand.pdf",
-  filename = paste(
-    analysis_path,
-    "plots",
-    "property_relationships_rand.pdf",
     sep = "/"
   ),
   width = 40,
@@ -202,10 +194,6 @@ ggsave(
 ```{r}
 # Reference for running correlations over tidy data:
 # https://dominicroye.github.io/en/2019/tidy-correlation-tests-in-r/
-library(broom)
-library(knitr)
-library(kableExtra)
-
 cor_fun <- function(data) {
   cor.test(
     data$graph_property_value,
@@ -248,24 +236,23 @@ full_corr <- full_corr %>%
     p.value.adj <= 0.05
   )
 
-
 full_corr_table <- kable(full_corr) %>%
   kable_styling(latex_options = "striped")
 save_kable(
   full_corr_table,
   paste(
-    analysis_path,
-    "plots",
+    plot_dir,
     "correlation_table.pdf",
     sep = "/"
   )
 )
 ```
 
+### Top three significant correlations per interaction matrix
+
 Break correlations down by interaction matrix
 
 ```{r}
-
 interaction_matrices <- levels(long_data$interaction_matrix)
 
 for (mat_type in interaction_matrices) {
@@ -302,7 +289,7 @@ for (mat_type in interaction_matrices) {
       p.value.adj = p.adjust(p.value, method = "holm")
     ) %>%
     filter(
-      p.value.adj <= 0.05
+      p.value.adj < 0.05
     )
 
   im_corr_table <- kable(im_corr) %>%
@@ -310,38 +297,36 @@ for (mat_type in interaction_matrices) {
   save_kable(
     im_corr_table,
     paste(
-      analysis_path,
-      "plots",
+      plot_dir,
       paste0("correlation_table_", mat_type, ".pdf"),
       sep = "/"
     )
   )
 
-  t5_corr <- im_corr %>%
+  top_corr <- im_corr %>%
     slice_max(
       abs_estimate,
       n = 3
     )
-  t5_corr_table <- kable(t5_corr) %>%
+  top_corr_table <- kable(top_corr) %>%
     kable_styling(latex_options = "striped")
 
   save_kable(
-    t5_corr_table,
+    top_corr_table,
     paste(
-      analysis_path,
-      "plots",
+      plot_dir,
       paste0("t3_correlation_table_", mat_type, ".pdf"),
       sep = "/"
     )
   )
 
 }
-
 ```
+
+### Distrubition of correlations >= 0.5 strength
 
 ```{r}
 # Look at distribution of correlations >= 0.5 strength
-
 corr_str_thresh <- 0.5
 full_corr_thresh <- full_corr %>%
   mutate(
@@ -363,8 +348,7 @@ corr_counts <- full_corr_thresh %>%
 
 # If something has one direction, but not other, fill in 0 for other.
 # For property in properties
-
-corr_counts %>%
+correlation_dirs_plot <- corr_counts %>%
   ggplot(
     aes(
       x = graph_property,
@@ -376,13 +360,12 @@ corr_counts %>%
   coord_flip()
 
 ggsave(
-  # filename = "property_relationships_rand.pdf",
+  plot = correlation_dirs_plot,
   filename = paste(
-    analysis_path,
-    "plots",
+    plot_dir,
     "most_moderate_correlations.pdf",
     sep = "/"
   )
 )
-
+correlation_dirs_plot
 ```
