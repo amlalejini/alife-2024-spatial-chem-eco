@@ -338,9 +338,8 @@ wm_wrs_test_table <- wrs_test %>%
 save_kable(
   wm_wrs_test_table,
   paste(
-    analysis_path,
-    "plots",
-    paste0("wm_wrs_test_results.pdf"),
+    plot_dir,
+    "wm_wrs_test_results.pdf",
     sep = "/"
   )
 )
@@ -419,9 +418,8 @@ effect_table <- spatial_struct_effects %>%
 save_kable(
   effect_table,
   paste(
-    analysis_path,
-    "plots",
-    paste0("spatial_struct_effect_table.pdf"),
+    plot_dir,
+    "spatial_struct_effect_table.pdf",
     sep = "/"
   )
 )
@@ -465,8 +463,7 @@ for (im in interaction_matrices) {
   save_kable(
     table,
     paste(
-      analysis_path,
-      "plots",
+      plot_dir,
       paste0("spatial_struct_effect_table_", im, ".pdf"),
       sep = "/"
     )
@@ -498,9 +495,8 @@ table <- effect_counts %>%
 save_kable(
   table,
   paste(
-    analysis_path,
-    "plots",
-    paste0("spatial_struct_effect_counts.pdf"),
+    plot_dir,
+    "spatial_struct_effect_counts.pdf",
     sep = "/"
   )
 )
@@ -575,8 +571,7 @@ effect_counts_fig <- effect_counts %>%
 
 ggsave(
   paste(
-    analysis_path,
-    "plots",
+    plot_dir,
     "spatial_structure_effect_distributions.pdf",
     sep = "/"
   ),
