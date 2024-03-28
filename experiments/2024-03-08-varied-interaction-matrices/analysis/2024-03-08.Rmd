@@ -263,6 +263,8 @@ summary_table
 
 ### Statistical analyses
 
+#### Transitionabiliy score distributions - Kruskal-Wallis test results
+
 First, a Kruskal-Wallis test (per-interaction matrix) to test for significant differences in distributions across spatial structure regimes.
 
 ```{r}
@@ -286,6 +288,8 @@ save_kable(
 )
 kw_table
 ```
+
+#### Transitionability score distributions - Pairwise Wilcoxon rank-sum test results
 
 Next, we perform pairwise Wilcoxon rank-sum tests for all significant comparison groups.
 We use a Holm-Bonferroni correction for multiple comparisons.
@@ -431,7 +435,7 @@ Break effects down by interaction matrix (experiment).
 Arrange in order of effect-size.
 
 ```{r}
-for (im in interaction_matrices) {
+for (im in int_matrices) {
   max_promoter <- max(
     filter(
       spatial_struct_effects,
