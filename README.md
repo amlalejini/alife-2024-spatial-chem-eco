@@ -1,6 +1,7 @@
 # Environmental connectivity influences the origination of adaptive processes
 
 [![supplemental](https://img.shields.io/badge/go%20to-supplemental%20material-ff69b4)](https://lalejini.com/alife-2024-spatial-chem-eco/web-supplement)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10891182.svg)](https://doi.org/10.5281/zenodo.10891182)
 [![OSF](https://img.shields.io/badge/data%20%40%20OSF-10.17605%2FOSF.IO%2FK3D8G-blue)](https://osf.io/k3d8g/)
 
 This repository is associated with our submission to the 2024 Artificial Life conference, "Environmental connectivity influences the origination of adaptive processes".
