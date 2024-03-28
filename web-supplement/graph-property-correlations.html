@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Graph property correlations | Supplemental Material for Environmental connectivity influences the origination of adaptive processes</title>
+  <meta name="description" content="Supplemental material" />
+  <meta name="generator" content="bookdown 0.37 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Graph property correlations | Supplemental Material for Environmental connectivity influences the origination of adaptive processes" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Supplemental material" />
+  <meta name="github-repo" content="amlalejini/alife-2024-spatial-chem-eco" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Graph property correlations | Supplemental Material for Environmental connectivity influences the origination of adaptive processes" />
+  
+  <meta name="twitter:description" content="Supplemental material" />
+  
+
+<meta name="author" content="John Shea, Sydney Leither, Max Foreback, Emily Dolson, and Alexander Lalejini" />
+
+
+<meta name="date" content="2024-03-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="community-transitionability-analyses.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Supplemental material</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#about-our-supplemental-material"><i class="fa fa-check"></i><b>1.1</b> About our supplemental material</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#contributing-authors"><i class="fa fa-check"></i><b>1.2</b> Contributing authors</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-availability.html"><a href="data-availability.html"><i class="fa fa-check"></i><b>2</b> Data availability</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-availability.html"><a href="data-availability.html#source-code"><i class="fa fa-check"></i><b>2.1</b> Source code</a></li>
+<li class="chapter" data-level="2.2" data-path="data-availability.html"><a href="data-availability.html#experimental-results"><i class="fa fa-check"></i><b>2.2</b> Experimental results</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="local-compilation.html"><a href="local-compilation.html"><i class="fa fa-check"></i><b>3</b> Local compilation</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="local-compilation.html"><a href="local-compilation.html#python-dependencies"><i class="fa fa-check"></i><b>3.1</b> Python dependencies</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="graph-structures.html"><a href="graph-structures.html"><i class="fa fa-check"></i><b>4</b> Graph structures</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="graph-structures.html"><a href="graph-structures.html#well-mixed-fully-connected"><i class="fa fa-check"></i><b>4.1</b> Well-mixed (fully connected)</a></li>
+<li class="chapter" data-level="4.2" data-path="graph-structures.html"><a href="graph-structures.html#toroidal-lattice"><i class="fa fa-check"></i><b>4.2</b> Toroidal lattice</a></li>
+<li class="chapter" data-level="4.3" data-path="graph-structures.html"><a href="graph-structures.html#linear-chain"><i class="fa fa-check"></i><b>4.3</b> Linear chain</a></li>
+<li class="chapter" data-level="4.4" data-path="graph-structures.html"><a href="graph-structures.html#cycle"><i class="fa fa-check"></i><b>4.4</b> Cycle</a></li>
+<li class="chapter" data-level="4.5" data-path="graph-structures.html"><a href="graph-structures.html#wheel"><i class="fa fa-check"></i><b>4.5</b> Wheel</a></li>
+<li class="chapter" data-level="4.6" data-path="graph-structures.html"><a href="graph-structures.html#star"><i class="fa fa-check"></i><b>4.6</b> Star</a></li>
+<li class="chapter" data-level="4.7" data-path="graph-structures.html"><a href="graph-structures.html#windmill"><i class="fa fa-check"></i><b>4.7</b> Windmill</a></li>
+<li class="chapter" data-level="4.8" data-path="graph-structures.html"><a href="graph-structures.html#comet-kite"><i class="fa fa-check"></i><b>4.8</b> Comet-kite</a></li>
+<li class="chapter" data-level="4.9" data-path="graph-structures.html"><a href="graph-structures.html#random-barabasi-albert"><i class="fa fa-check"></i><b>4.9</b> Random Barabasi-Albert</a></li>
+<li class="chapter" data-level="4.10" data-path="graph-structures.html"><a href="graph-structures.html#random-waxman"><i class="fa fa-check"></i><b>4.10</b> Random Waxman</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="graph-properties.html"><a href="graph-properties.html"><i class="fa fa-check"></i><b>5</b> Graph properties</a></li>
+<li class="chapter" data-level="6" data-path="summary-of-spatial-structure-effects-on-evolutionary-adaptation.html"><a href="summary-of-spatial-structure-effects-on-evolutionary-adaptation.html"><i class="fa fa-check"></i><b>6</b> Summary of spatial structure effects on evolutionary adaptation</a></li>
+<li class="chapter" data-level="7" data-path="community-transitionability-analyses.html"><a href="community-transitionability-analyses.html"><i class="fa fa-check"></i><b>7</b> Community transitionability analyses</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="community-transitionability-analyses.html"><a href="community-transitionability-analyses.html#dependencies-and-setup"><i class="fa fa-check"></i><b>7.1</b> Dependencies and setup</a></li>
+<li class="chapter" data-level="7.2" data-path="community-transitionability-analyses.html"><a href="community-transitionability-analyses.html#data-preprocessing"><i class="fa fa-check"></i><b>7.2</b> Data preprocessing</a></li>
+<li class="chapter" data-level="7.3" data-path="community-transitionability-analyses.html"><a href="community-transitionability-analyses.html#final-transitionability-scores"><i class="fa fa-check"></i><b>7.3</b> Final transitionability scores</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="community-transitionability-analyses.html"><a href="community-transitionability-analyses.html#statistical-analyses"><i class="fa fa-check"></i><b>7.3.1</b> Statistical analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="community-transitionability-analyses.html"><a href="community-transitionability-analyses.html#identify-amplifiers-or-suppressors"><i class="fa fa-check"></i><b>7.4</b> Identify amplifiers or suppressors</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="community-transitionability-analyses.html"><a href="community-transitionability-analyses.html#distribution-of-effects-for-each-spatial-structure-type"><i class="fa fa-check"></i><b>7.4.1</b> Distribution of effects for each spatial structure type</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="graph-property-correlations.html"><a href="graph-property-correlations.html"><i class="fa fa-check"></i><b>8</b> Graph property correlations</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="graph-property-correlations.html"><a href="graph-property-correlations.html#dependencies-and-setup-1"><i class="fa fa-check"></i><b>8.1</b> Dependencies and setup</a></li>
+<li class="chapter" data-level="8.2" data-path="graph-property-correlations.html"><a href="graph-property-correlations.html#data-preprocessing-1"><i class="fa fa-check"></i><b>8.2</b> Data preprocessing</a></li>
+<li class="chapter" data-level="8.3" data-path="graph-property-correlations.html"><a href="graph-property-correlations.html#plot-relationships-between-transitionability-and-graph-properties"><i class="fa fa-check"></i><b>8.3</b> Plot relationships between transitionability and graph properties</a></li>
+<li class="chapter" data-level="8.4" data-path="graph-property-correlations.html"><a href="graph-property-correlations.html#measure-correlations"><i class="fa fa-check"></i><b>8.4</b> Measure correlations</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="graph-property-correlations.html"><a href="graph-property-correlations.html#top-three-significant-correlations-per-interaction-matrix"><i class="fa fa-check"></i><b>8.4.1</b> Top three significant correlations per interaction matrix</a></li>
+<li class="chapter" data-level="8.4.2" data-path="graph-property-correlations.html"><a href="graph-property-correlations.html#distrubition-of-correlations-0.5-strength"><i class="fa fa-check"></i><b>8.4.2</b> Distrubition of correlations &gt;= 0.5 strength</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with ❤ and bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Supplemental Material for Environmental connectivity influences the origination of adaptive processes</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="graph-property-correlations" class="section level1 hasAnchor" number="8">
+<h1><span class="header-section-number">Chapter 8</span> Graph property correlations<a href="graph-property-correlations.html#graph-property-correlations" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We screened for graph properties correlated with community transitionability scores.</p>
+<div id="dependencies-and-setup-1" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Dependencies and setup<a href="graph-property-correlations.html#dependencies-and-setup-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="graph-property-correlations.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb21-2"><a href="graph-property-correlations.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb21-3"><a href="graph-property-correlations.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb21-4"><a href="graph-property-correlations.html#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb21-5"><a href="graph-property-correlations.html#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="graph-property-correlations.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if Rmd is being compiled using bookdown</span></span>
+<span id="cb22-2"><a href="graph-property-correlations.html#cb22-2" aria-hidden="true" tabindex="-1"></a>bookdown <span class="ot">&lt;-</span> <span class="fu">exists</span>(<span class="st">&quot;bookdown_build&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="graph-property-correlations.html#cb23-1" aria-hidden="true" tabindex="-1"></a>experiment_slug <span class="ot">&lt;-</span> <span class="st">&quot;2024-03-08-varied-interaction-matrices&quot;</span></span>
+<span id="cb23-2"><a href="graph-property-correlations.html#cb23-2" aria-hidden="true" tabindex="-1"></a>working_directory <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb23-3"><a href="graph-property-correlations.html#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;experiments&quot;</span>,</span>
+<span id="cb23-4"><a href="graph-property-correlations.html#cb23-4" aria-hidden="true" tabindex="-1"></a>  experiment_slug,</span>
+<span id="cb23-5"><a href="graph-property-correlations.html#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;analysis&quot;</span>,</span>
+<span id="cb23-6"><a href="graph-property-correlations.html#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb23-7"><a href="graph-property-correlations.html#cb23-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-8"><a href="graph-property-correlations.html#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjust working directory if being knitted for bookdown build.</span></span>
+<span id="cb23-9"><a href="graph-property-correlations.html#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (bookdown) {</span>
+<span id="cb23-10"><a href="graph-property-correlations.html#cb23-10" aria-hidden="true" tabindex="-1"></a>  working_directory <span class="ot">&lt;-</span> <span class="fu">paste0</span>(</span>
+<span id="cb23-11"><a href="graph-property-correlations.html#cb23-11" aria-hidden="true" tabindex="-1"></a>    bookdown_wd_prefix,</span>
+<span id="cb23-12"><a href="graph-property-correlations.html#cb23-12" aria-hidden="true" tabindex="-1"></a>    working_directory</span>
+<span id="cb23-13"><a href="graph-property-correlations.html#cb23-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-14"><a href="graph-property-correlations.html#cb23-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb23-15"><a href="graph-property-correlations.html#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="graph-property-correlations.html#cb23-16" aria-hidden="true" tabindex="-1"></a>plot_dir <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb23-17"><a href="graph-property-correlations.html#cb23-17" aria-hidden="true" tabindex="-1"></a>  working_directory,</span>
+<span id="cb23-18"><a href="graph-property-correlations.html#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;plots&quot;</span>,</span>
+<span id="cb23-19"><a href="graph-property-correlations.html#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb23-20"><a href="graph-property-correlations.html#cb23-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-21"><a href="graph-property-correlations.html#cb23-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-22"><a href="graph-property-correlations.html#cb23-22" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="fu">paste</span>(</span>
+<span id="cb23-23"><a href="graph-property-correlations.html#cb23-23" aria-hidden="true" tabindex="-1"></a>  working_directory,</span>
+<span id="cb23-24"><a href="graph-property-correlations.html#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;data&quot;</span>,</span>
+<span id="cb23-25"><a href="graph-property-correlations.html#cb23-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;world_summary_final_update_with-graph-props.csv&quot;</span>,</span>
+<span id="cb23-26"><a href="graph-property-correlations.html#cb23-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb23-27"><a href="graph-property-correlations.html#cb23-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-28"><a href="graph-property-correlations.html#cb23-28" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(data_path)</span></code></pre></div>
+<p>Set cowplot theme as default plotting theme.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="graph-property-correlations.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_cowplot</span>())</span></code></pre></div>
+</div>
+<div id="data-preprocessing-1" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Data preprocessing<a href="graph-property-correlations.html#data-preprocessing-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="graph-property-correlations.html#cb25-1" aria-hidden="true" tabindex="-1"></a>max_update <span class="ot">&lt;-</span> <span class="fu">max</span>(data<span class="sc">$</span>update)</span>
+<span id="cb25-2"><a href="graph-property-correlations.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that we just have measurements from final update.</span></span>
+<span id="cb25-3"><a href="graph-property-correlations.html#cb25-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="graph-property-correlations.html#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(update <span class="sc">==</span> max_update) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="graph-property-correlations.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-6"><a href="graph-property-correlations.html#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">interaction_matrix =</span> <span class="fu">as.factor</span>(interaction_matrix),</span>
+<span id="cb25-7"><a href="graph-property-correlations.html#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_type =</span> <span class="fu">as.factor</span>(graph_type),</span>
+<span id="cb25-8"><a href="graph-property-correlations.html#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">summary_mode =</span> <span class="fu">as.factor</span>(summary_mode),</span>
+<span id="cb25-9"><a href="graph-property-correlations.html#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">update =</span> <span class="fu">as.numeric</span>(update),</span>
+<span id="cb25-10"><a href="graph-property-correlations.html#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">SEED =</span> <span class="fu">as.factor</span>(SEED),</span>
+<span id="cb25-11"><a href="graph-property-correlations.html#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_file =</span> <span class="fu">str_split_i</span>(DIFFUSION_SPATIAL_STRUCTURE_FILE, <span class="st">&quot;/&quot;</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb25-12"><a href="graph-property-correlations.html#cb25-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-13"><a href="graph-property-correlations.html#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-14"><a href="graph-property-correlations.html#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_file =</span> <span class="fu">as.factor</span>(graph_file)</span>
+<span id="cb25-15"><a href="graph-property-correlations.html#cb25-15" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-16"><a href="graph-property-correlations.html#cb25-16" aria-hidden="true" tabindex="-1"></a><span class="co"># write_csv(</span></span>
+<span id="cb25-17"><a href="graph-property-correlations.html#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   data,</span></span>
+<span id="cb25-18"><a href="graph-property-correlations.html#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   &quot;world_summary_final_update.csv&quot;</span></span>
+<span id="cb25-19"><a href="graph-property-correlations.html#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="co"># )</span></span>
+<span id="cb25-20"><a href="graph-property-correlations.html#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-21"><a href="graph-property-correlations.html#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="co"># For each row, assign graph properties</span></span>
+<span id="cb25-22"><a href="graph-property-correlations.html#cb25-22" aria-hidden="true" tabindex="-1"></a>properties <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb25-23"><a href="graph-property-correlations.html#cb25-23" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_density&quot;</span>,</span>
+<span id="cb25-24"><a href="graph-property-correlations.html#cb25-24" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_degree_mean&quot;</span>,</span>
+<span id="cb25-25"><a href="graph-property-correlations.html#cb25-25" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_degree_median&quot;</span>,</span>
+<span id="cb25-26"><a href="graph-property-correlations.html#cb25-26" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_degree_variance&quot;</span>,</span>
+<span id="cb25-27"><a href="graph-property-correlations.html#cb25-27" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_girth&quot;</span>,</span>
+<span id="cb25-28"><a href="graph-property-correlations.html#cb25-28" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_degree_assortivity_coef&quot;</span>,</span>
+<span id="cb25-29"><a href="graph-property-correlations.html#cb25-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_num_bridges&quot;</span>,</span>
+<span id="cb25-30"><a href="graph-property-correlations.html#cb25-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_max_clique_size&quot;</span>,</span>
+<span id="cb25-31"><a href="graph-property-correlations.html#cb25-31" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_transitivity&quot;</span>,</span>
+<span id="cb25-32"><a href="graph-property-correlations.html#cb25-32" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_avg_clustering&quot;</span>,</span>
+<span id="cb25-33"><a href="graph-property-correlations.html#cb25-33" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_num_connected_components&quot;</span>,</span>
+<span id="cb25-34"><a href="graph-property-correlations.html#cb25-34" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_num_articulation_points&quot;</span>,</span>
+<span id="cb25-35"><a href="graph-property-correlations.html#cb25-35" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_avg_node_connectivity&quot;</span>,</span>
+<span id="cb25-36"><a href="graph-property-correlations.html#cb25-36" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_edge_connectivity&quot;</span>,</span>
+<span id="cb25-37"><a href="graph-property-correlations.html#cb25-37" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_node_connectivity&quot;</span>,</span>
+<span id="cb25-38"><a href="graph-property-correlations.html#cb25-38" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_diameter&quot;</span>,</span>
+<span id="cb25-39"><a href="graph-property-correlations.html#cb25-39" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_radius&quot;</span>,</span>
+<span id="cb25-40"><a href="graph-property-correlations.html#cb25-40" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_kemeny_constant&quot;</span>,</span>
+<span id="cb25-41"><a href="graph-property-correlations.html#cb25-41" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_global_efficiency&quot;</span>,</span>
+<span id="cb25-42"><a href="graph-property-correlations.html#cb25-42" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_wiener_index&quot;</span>,</span>
+<span id="cb25-43"><a href="graph-property-correlations.html#cb25-43" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;graph_prop_longest_shortest_path&quot;</span></span>
+<span id="cb25-44"><a href="graph-property-correlations.html#cb25-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-45"><a href="graph-property-correlations.html#cb25-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-46"><a href="graph-property-correlations.html#cb25-46" aria-hidden="true" tabindex="-1"></a><span class="co"># (3) Pivot longer</span></span>
+<span id="cb25-47"><a href="graph-property-correlations.html#cb25-47" aria-hidden="true" tabindex="-1"></a>long_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb25-48"><a href="graph-property-correlations.html#cb25-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-49"><a href="graph-property-correlations.html#cb25-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_prop_diameter =</span> <span class="fu">case_when</span>(</span>
+<span id="cb25-50"><a href="graph-property-correlations.html#cb25-50" aria-hidden="true" tabindex="-1"></a>      graph_prop_diameter <span class="sc">==</span> <span class="st">&quot;error&quot;</span> <span class="sc">~</span> <span class="st">&quot;-1&quot;</span>,</span>
+<span id="cb25-51"><a href="graph-property-correlations.html#cb25-51" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> graph_prop_diameter</span>
+<span id="cb25-52"><a href="graph-property-correlations.html#cb25-52" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb25-53"><a href="graph-property-correlations.html#cb25-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_prop_radius =</span> <span class="fu">case_when</span>(</span>
+<span id="cb25-54"><a href="graph-property-correlations.html#cb25-54" aria-hidden="true" tabindex="-1"></a>      graph_prop_radius <span class="sc">==</span> <span class="st">&quot;error&quot;</span> <span class="sc">~</span> <span class="st">&quot;-1&quot;</span>,</span>
+<span id="cb25-55"><a href="graph-property-correlations.html#cb25-55" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> graph_prop_radius</span>
+<span id="cb25-56"><a href="graph-property-correlations.html#cb25-56" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb25-57"><a href="graph-property-correlations.html#cb25-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_prop_kemeny_constant =</span> <span class="fu">case_when</span>(</span>
+<span id="cb25-58"><a href="graph-property-correlations.html#cb25-58" aria-hidden="true" tabindex="-1"></a>      graph_prop_kemeny_constant <span class="sc">==</span> <span class="st">&quot;error&quot;</span> <span class="sc">~</span> <span class="st">&quot;-1&quot;</span>,</span>
+<span id="cb25-59"><a href="graph-property-correlations.html#cb25-59" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> graph_prop_kemeny_constant</span>
+<span id="cb25-60"><a href="graph-property-correlations.html#cb25-60" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-61"><a href="graph-property-correlations.html#cb25-61" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-62"><a href="graph-property-correlations.html#cb25-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-63"><a href="graph-property-correlations.html#cb25-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_prop_diameter =</span> <span class="fu">as.numeric</span>(graph_prop_diameter),</span>
+<span id="cb25-64"><a href="graph-property-correlations.html#cb25-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_prop_radius =</span> <span class="fu">as.numeric</span>(graph_prop_radius),</span>
+<span id="cb25-65"><a href="graph-property-correlations.html#cb25-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_prop_kemeny_constant =</span> <span class="fu">as.numeric</span>(graph_prop_kemeny_constant)</span>
+<span id="cb25-66"><a href="graph-property-correlations.html#cb25-66" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-67"><a href="graph-property-correlations.html#cb25-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb25-68"><a href="graph-property-correlations.html#cb25-68" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">c</span>(</span>
+<span id="cb25-69"><a href="graph-property-correlations.html#cb25-69" aria-hidden="true" tabindex="-1"></a>      DIFFUSION_SPATIAL_STRUCTURE_FILE,</span>
+<span id="cb25-70"><a href="graph-property-correlations.html#cb25-70" aria-hidden="true" tabindex="-1"></a>      GROUP_REPRO_SPATIAL_STRUCTURE_FILE,</span>
+<span id="cb25-71"><a href="graph-property-correlations.html#cb25-71" aria-hidden="true" tabindex="-1"></a>      INTERACTION_SOURCE</span>
+<span id="cb25-72"><a href="graph-property-correlations.html#cb25-72" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb25-73"><a href="graph-property-correlations.html#cb25-73" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-74"><a href="graph-property-correlations.html#cb25-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb25-75"><a href="graph-property-correlations.html#cb25-75" aria-hidden="true" tabindex="-1"></a>    summary_mode <span class="sc">==</span> <span class="st">&quot;ranked_threshold&quot;</span></span>
+<span id="cb25-76"><a href="graph-property-correlations.html#cb25-76" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-77"><a href="graph-property-correlations.html#cb25-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb25-78"><a href="graph-property-correlations.html#cb25-78" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> properties,</span>
+<span id="cb25-79"><a href="graph-property-correlations.html#cb25-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;graph_property&quot;</span>,</span>
+<span id="cb25-80"><a href="graph-property-correlations.html#cb25-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;graph_property_value&quot;</span></span>
+<span id="cb25-81"><a href="graph-property-correlations.html#cb25-81" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-82"><a href="graph-property-correlations.html#cb25-82" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb25-83"><a href="graph-property-correlations.html#cb25-83" aria-hidden="true" tabindex="-1"></a>    (<span class="sc">!</span><span class="fu">is.na</span>(graph_property_value)) <span class="sc">&amp;</span> graph_property_value <span class="sc">!=</span> <span class="st">&quot;Inf&quot;</span> <span class="sc">&amp;</span></span>
+<span id="cb25-84"><a href="graph-property-correlations.html#cb25-84" aria-hidden="true" tabindex="-1"></a>    (<span class="sc">!</span>(graph_property <span class="sc">==</span> <span class="st">&quot;graph_prop_diameter&quot;</span> <span class="sc">&amp;</span> (graph_property_value <span class="sc">==</span> <span class="st">&quot;-1&quot;</span>))) <span class="sc">&amp;</span></span>
+<span id="cb25-85"><a href="graph-property-correlations.html#cb25-85" aria-hidden="true" tabindex="-1"></a>    (<span class="sc">!</span>(graph_property <span class="sc">==</span> <span class="st">&quot;graph_prop_radius&quot;</span> <span class="sc">&amp;</span> (graph_property_value <span class="sc">==</span> <span class="st">&quot;-1&quot;</span>))) <span class="sc">&amp;</span></span>
+<span id="cb25-86"><a href="graph-property-correlations.html#cb25-86" aria-hidden="true" tabindex="-1"></a>    (<span class="sc">!</span>(graph_property <span class="sc">==</span> <span class="st">&quot;graph_prop_kemeny_constant&quot;</span> <span class="sc">&amp;</span> (graph_property_value <span class="sc">==</span> <span class="st">&quot;-1&quot;</span>)))</span>
+<span id="cb25-87"><a href="graph-property-correlations.html#cb25-87" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-88"><a href="graph-property-correlations.html#cb25-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-89"><a href="graph-property-correlations.html#cb25-89" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_property_value =</span> <span class="fu">as.numeric</span>(graph_property_value),</span>
+<span id="cb25-90"><a href="graph-property-correlations.html#cb25-90" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_property =</span> <span class="fu">str_remove</span>(graph_property, <span class="st">&quot;graph_prop_&quot;</span>)</span>
+<span id="cb25-91"><a href="graph-property-correlations.html#cb25-91" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-92"><a href="graph-property-correlations.html#cb25-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-93"><a href="graph-property-correlations.html#cb25-93" aria-hidden="true" tabindex="-1"></a>    <span class="at">graph_property =</span> <span class="fu">as.factor</span>(graph_property)</span>
+<span id="cb25-94"><a href="graph-property-correlations.html#cb25-94" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-95"><a href="graph-property-correlations.html#cb25-95" aria-hidden="true" tabindex="-1"></a><span class="co"># write_csv(long_data, &quot;test.csv&quot;)</span></span></code></pre></div>
+</div>
+<div id="plot-relationships-between-transitionability-and-graph-properties" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Plot relationships between transitionability and graph properties<a href="graph-property-correlations.html#plot-relationships-between-transitionability-and-graph-properties" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="graph-property-correlations.html#cb26-1" aria-hidden="true" tabindex="-1"></a>rel_plot <span class="ot">&lt;-</span> long_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-2"><a href="graph-property-correlations.html#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb26-3"><a href="graph-property-correlations.html#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb26-4"><a href="graph-property-correlations.html#cb26-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> graph_property_value,</span>
+<span id="cb26-5"><a href="graph-property-correlations.html#cb26-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> logged_mult_score</span>
+<span id="cb26-6"><a href="graph-property-correlations.html#cb26-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-7"><a href="graph-property-correlations.html#cb26-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="graph-property-correlations.html#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> graph_type)) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="graph-property-correlations.html#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb26-10"><a href="graph-property-correlations.html#cb26-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb26-11"><a href="graph-property-correlations.html#cb26-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;black&quot;</span></span>
+<span id="cb26-12"><a href="graph-property-correlations.html#cb26-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb26-13"><a href="graph-property-correlations.html#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(</span>
+<span id="cb26-14"><a href="graph-property-correlations.html#cb26-14" aria-hidden="true" tabindex="-1"></a>    interaction_matrix <span class="sc">~</span> graph_property,</span>
+<span id="cb26-15"><a href="graph-property-correlations.html#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">scales =</span> <span class="st">&quot;free&quot;</span></span>
+<span id="cb26-16"><a href="graph-property-correlations.html#cb26-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb26-17"><a href="graph-property-correlations.html#cb26-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-18"><a href="graph-property-correlations.html#cb26-18" aria-hidden="true" tabindex="-1"></a>rel_plot</span></code></pre></div>
+<p><img src="supplemental-material_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="graph-property-correlations.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb27-2"><a href="graph-property-correlations.html#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> rel_plot,</span>
+<span id="cb27-3"><a href="graph-property-correlations.html#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste</span>(</span>
+<span id="cb27-4"><a href="graph-property-correlations.html#cb27-4" aria-hidden="true" tabindex="-1"></a>    plot_dir,</span>
+<span id="cb27-5"><a href="graph-property-correlations.html#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;property_relationships.pdf&quot;</span>,</span>
+<span id="cb27-6"><a href="graph-property-correlations.html#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb27-7"><a href="graph-property-correlations.html#cb27-7" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb27-8"><a href="graph-property-correlations.html#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">width =</span> <span class="dv">40</span>,</span>
+<span id="cb27-9"><a href="graph-property-correlations.html#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">height =</span> <span class="dv">20</span></span>
+<span id="cb27-10"><a href="graph-property-correlations.html#cb27-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="measure-correlations" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Measure correlations<a href="graph-property-correlations.html#measure-correlations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="graph-property-correlations.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reference for running correlations over tidy data:</span></span>
+<span id="cb28-2"><a href="graph-property-correlations.html#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># https://dominicroye.github.io/en/2019/tidy-correlation-tests-in-r/</span></span>
+<span id="cb28-3"><a href="graph-property-correlations.html#cb28-3" aria-hidden="true" tabindex="-1"></a>cor_fun <span class="ot">&lt;-</span> <span class="cf">function</span>(data) {</span>
+<span id="cb28-4"><a href="graph-property-correlations.html#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor.test</span>(</span>
+<span id="cb28-5"><a href="graph-property-correlations.html#cb28-5" aria-hidden="true" tabindex="-1"></a>    data<span class="sc">$</span>graph_property_value,</span>
+<span id="cb28-6"><a href="graph-property-correlations.html#cb28-6" aria-hidden="true" tabindex="-1"></a>    data<span class="sc">$</span>logged_mult_score,</span>
+<span id="cb28-7"><a href="graph-property-correlations.html#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>,</span>
+<span id="cb28-8"><a href="graph-property-correlations.html#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">exact =</span> <span class="cn">FALSE</span></span>
+<span id="cb28-9"><a href="graph-property-correlations.html#cb28-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>()</span>
+<span id="cb28-10"><a href="graph-property-correlations.html#cb28-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb28-11"><a href="graph-property-correlations.html#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="graph-property-correlations.html#cb28-12" aria-hidden="true" tabindex="-1"></a>nested <span class="ot">&lt;-</span> long_data <span class="sc">%&gt;%</span></span>
+<span id="cb28-13"><a href="graph-property-correlations.html#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb28-14"><a href="graph-property-correlations.html#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">c</span>(</span>
+<span id="cb28-15"><a href="graph-property-correlations.html#cb28-15" aria-hidden="true" tabindex="-1"></a>      interaction_matrix,</span>
+<span id="cb28-16"><a href="graph-property-correlations.html#cb28-16" aria-hidden="true" tabindex="-1"></a>      graph_property,</span>
+<span id="cb28-17"><a href="graph-property-correlations.html#cb28-17" aria-hidden="true" tabindex="-1"></a>      graph_property_value,</span>
+<span id="cb28-18"><a href="graph-property-correlations.html#cb28-18" aria-hidden="true" tabindex="-1"></a>      logged_mult_score</span>
+<span id="cb28-19"><a href="graph-property-correlations.html#cb28-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-20"><a href="graph-property-correlations.html#cb28-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-21"><a href="graph-property-correlations.html#cb28-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(interaction_matrix, graph_property) <span class="sc">%&gt;%</span></span>
+<span id="cb28-22"><a href="graph-property-correlations.html#cb28-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb28-23"><a href="graph-property-correlations.html#cb28-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-24"><a href="graph-property-correlations.html#cb28-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> <span class="fu">map</span>(data, cor_fun)</span>
+<span id="cb28-25"><a href="graph-property-correlations.html#cb28-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-26"><a href="graph-property-correlations.html#cb28-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-27"><a href="graph-property-correlations.html#cb28-27" aria-hidden="true" tabindex="-1"></a>full_corr <span class="ot">&lt;-</span> <span class="fu">select</span>(nested, <span class="sc">-</span>data) <span class="sc">%&gt;%</span> <span class="fu">unnest</span>()</span>
+<span id="cb28-28"><a href="graph-property-correlations.html#cb28-28" aria-hidden="true" tabindex="-1"></a>full_corr <span class="ot">&lt;-</span> full_corr <span class="sc">%&gt;%</span></span>
+<span id="cb28-29"><a href="graph-property-correlations.html#cb28-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-30"><a href="graph-property-correlations.html#cb28-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">abs_estimate =</span> <span class="fu">abs</span>(estimate)</span>
+<span id="cb28-31"><a href="graph-property-correlations.html#cb28-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-32"><a href="graph-property-correlations.html#cb28-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb28-33"><a href="graph-property-correlations.html#cb28-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">desc</span>(abs_estimate)</span>
+<span id="cb28-34"><a href="graph-property-correlations.html#cb28-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-35"><a href="graph-property-correlations.html#cb28-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(</span>
+<span id="cb28-36"><a href="graph-property-correlations.html#cb28-36" aria-hidden="true" tabindex="-1"></a>    interaction_matrix</span>
+<span id="cb28-37"><a href="graph-property-correlations.html#cb28-37" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-38"><a href="graph-property-correlations.html#cb28-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb28-39"><a href="graph-property-correlations.html#cb28-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">p.value.adj =</span> <span class="fu">p.adjust</span>(p.value, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span>
+<span id="cb28-40"><a href="graph-property-correlations.html#cb28-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb28-41"><a href="graph-property-correlations.html#cb28-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb28-42"><a href="graph-property-correlations.html#cb28-42" aria-hidden="true" tabindex="-1"></a>    p.value.adj <span class="sc">&lt;=</span> <span class="fl">0.05</span></span>
+<span id="cb28-43"><a href="graph-property-correlations.html#cb28-43" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-44"><a href="graph-property-correlations.html#cb28-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-45"><a href="graph-property-correlations.html#cb28-45" aria-hidden="true" tabindex="-1"></a>full_corr_table <span class="ot">&lt;-</span> <span class="fu">kable</span>(full_corr) <span class="sc">%&gt;%</span></span>
+<span id="cb28-46"><a href="graph-property-correlations.html#cb28-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;striped&quot;</span>)</span>
+<span id="cb28-47"><a href="graph-property-correlations.html#cb28-47" aria-hidden="true" tabindex="-1"></a><span class="fu">save_kable</span>(</span>
+<span id="cb28-48"><a href="graph-property-correlations.html#cb28-48" aria-hidden="true" tabindex="-1"></a>  full_corr_table,</span>
+<span id="cb28-49"><a href="graph-property-correlations.html#cb28-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(</span>
+<span id="cb28-50"><a href="graph-property-correlations.html#cb28-50" aria-hidden="true" tabindex="-1"></a>    plot_dir,</span>
+<span id="cb28-51"><a href="graph-property-correlations.html#cb28-51" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;correlation_table.pdf&quot;</span>,</span>
+<span id="cb28-52"><a href="graph-property-correlations.html#cb28-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb28-53"><a href="graph-property-correlations.html#cb28-53" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb28-54"><a href="graph-property-correlations.html#cb28-54" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div id="top-three-significant-correlations-per-interaction-matrix" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Top three significant correlations per interaction matrix<a href="graph-property-correlations.html#top-three-significant-correlations-per-interaction-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Break correlations down by interaction matrix</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="graph-property-correlations.html#cb29-1" aria-hidden="true" tabindex="-1"></a>interaction_matrices <span class="ot">&lt;-</span> <span class="fu">levels</span>(long_data<span class="sc">$</span>interaction_matrix)</span>
+<span id="cb29-2"><a href="graph-property-correlations.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="graph-property-correlations.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (mat_type <span class="cf">in</span> interaction_matrices) {</span>
+<span id="cb29-4"><a href="graph-property-correlations.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  mat_data <span class="ot">&lt;-</span> <span class="fu">filter</span>(long_data, interaction_matrix <span class="sc">==</span> mat_type)</span>
+<span id="cb29-5"><a href="graph-property-correlations.html#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="graph-property-correlations.html#cb29-6" aria-hidden="true" tabindex="-1"></a>  nested <span class="ot">&lt;-</span> mat_data <span class="sc">%&gt;%</span></span>
+<span id="cb29-7"><a href="graph-property-correlations.html#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(</span>
+<span id="cb29-8"><a href="graph-property-correlations.html#cb29-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(</span>
+<span id="cb29-9"><a href="graph-property-correlations.html#cb29-9" aria-hidden="true" tabindex="-1"></a>        interaction_matrix,</span>
+<span id="cb29-10"><a href="graph-property-correlations.html#cb29-10" aria-hidden="true" tabindex="-1"></a>        graph_property,</span>
+<span id="cb29-11"><a href="graph-property-correlations.html#cb29-11" aria-hidden="true" tabindex="-1"></a>        graph_property_value,</span>
+<span id="cb29-12"><a href="graph-property-correlations.html#cb29-12" aria-hidden="true" tabindex="-1"></a>        logged_mult_score</span>
+<span id="cb29-13"><a href="graph-property-correlations.html#cb29-13" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb29-14"><a href="graph-property-correlations.html#cb29-14" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb29-15"><a href="graph-property-correlations.html#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(interaction_matrix, graph_property) <span class="sc">%&gt;%</span></span>
+<span id="cb29-16"><a href="graph-property-correlations.html#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nest</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb29-17"><a href="graph-property-correlations.html#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb29-18"><a href="graph-property-correlations.html#cb29-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">model =</span> <span class="fu">map</span>(data, cor_fun)</span>
+<span id="cb29-19"><a href="graph-property-correlations.html#cb29-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-20"><a href="graph-property-correlations.html#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="graph-property-correlations.html#cb29-21" aria-hidden="true" tabindex="-1"></a>  im_corr <span class="ot">&lt;-</span> <span class="fu">select</span>(nested, <span class="sc">-</span>data) <span class="sc">%&gt;%</span> <span class="fu">unnest</span>()</span>
+<span id="cb29-22"><a href="graph-property-correlations.html#cb29-22" aria-hidden="true" tabindex="-1"></a>  im_corr <span class="ot">&lt;-</span> im_corr <span class="sc">%&gt;%</span></span>
+<span id="cb29-23"><a href="graph-property-correlations.html#cb29-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb29-24"><a href="graph-property-correlations.html#cb29-24" aria-hidden="true" tabindex="-1"></a>      <span class="at">abs_estimate =</span> <span class="fu">abs</span>(estimate)</span>
+<span id="cb29-25"><a href="graph-property-correlations.html#cb29-25" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb29-26"><a href="graph-property-correlations.html#cb29-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(</span>
+<span id="cb29-27"><a href="graph-property-correlations.html#cb29-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">desc</span>(abs_estimate)</span>
+<span id="cb29-28"><a href="graph-property-correlations.html#cb29-28" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb29-29"><a href="graph-property-correlations.html#cb29-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb29-30"><a href="graph-property-correlations.html#cb29-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(</span>
+<span id="cb29-31"><a href="graph-property-correlations.html#cb29-31" aria-hidden="true" tabindex="-1"></a>      interaction_matrix</span>
+<span id="cb29-32"><a href="graph-property-correlations.html#cb29-32" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb29-33"><a href="graph-property-correlations.html#cb29-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb29-34"><a href="graph-property-correlations.html#cb29-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">p.value.adj =</span> <span class="fu">p.adjust</span>(p.value, <span class="at">method =</span> <span class="st">&quot;holm&quot;</span>)</span>
+<span id="cb29-35"><a href="graph-property-correlations.html#cb29-35" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">%&gt;%</span></span>
+<span id="cb29-36"><a href="graph-property-correlations.html#cb29-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb29-37"><a href="graph-property-correlations.html#cb29-37" aria-hidden="true" tabindex="-1"></a>      p.value.adj <span class="sc">&lt;</span> <span class="fl">0.05</span></span>
+<span id="cb29-38"><a href="graph-property-correlations.html#cb29-38" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-39"><a href="graph-property-correlations.html#cb29-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-40"><a href="graph-property-correlations.html#cb29-40" aria-hidden="true" tabindex="-1"></a>  im_corr_table <span class="ot">&lt;-</span> <span class="fu">kable</span>(im_corr) <span class="sc">%&gt;%</span></span>
+<span id="cb29-41"><a href="graph-property-correlations.html#cb29-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;striped&quot;</span>)</span>
+<span id="cb29-42"><a href="graph-property-correlations.html#cb29-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save_kable</span>(</span>
+<span id="cb29-43"><a href="graph-property-correlations.html#cb29-43" aria-hidden="true" tabindex="-1"></a>    im_corr_table,</span>
+<span id="cb29-44"><a href="graph-property-correlations.html#cb29-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(</span>
+<span id="cb29-45"><a href="graph-property-correlations.html#cb29-45" aria-hidden="true" tabindex="-1"></a>      plot_dir,</span>
+<span id="cb29-46"><a href="graph-property-correlations.html#cb29-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">&quot;correlation_table_&quot;</span>, mat_type, <span class="st">&quot;.pdf&quot;</span>),</span>
+<span id="cb29-47"><a href="graph-property-correlations.html#cb29-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb29-48"><a href="graph-property-correlations.html#cb29-48" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-49"><a href="graph-property-correlations.html#cb29-49" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-50"><a href="graph-property-correlations.html#cb29-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-51"><a href="graph-property-correlations.html#cb29-51" aria-hidden="true" tabindex="-1"></a>  top_corr <span class="ot">&lt;-</span> im_corr <span class="sc">%&gt;%</span></span>
+<span id="cb29-52"><a href="graph-property-correlations.html#cb29-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">slice_max</span>(</span>
+<span id="cb29-53"><a href="graph-property-correlations.html#cb29-53" aria-hidden="true" tabindex="-1"></a>      abs_estimate,</span>
+<span id="cb29-54"><a href="graph-property-correlations.html#cb29-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">n =</span> <span class="dv">3</span></span>
+<span id="cb29-55"><a href="graph-property-correlations.html#cb29-55" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-56"><a href="graph-property-correlations.html#cb29-56" aria-hidden="true" tabindex="-1"></a>  top_corr_table <span class="ot">&lt;-</span> <span class="fu">kable</span>(top_corr) <span class="sc">%&gt;%</span></span>
+<span id="cb29-57"><a href="graph-property-correlations.html#cb29-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_styling</span>(<span class="at">latex_options =</span> <span class="st">&quot;striped&quot;</span>)</span>
+<span id="cb29-58"><a href="graph-property-correlations.html#cb29-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-59"><a href="graph-property-correlations.html#cb29-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save_kable</span>(</span>
+<span id="cb29-60"><a href="graph-property-correlations.html#cb29-60" aria-hidden="true" tabindex="-1"></a>    top_corr_table,</span>
+<span id="cb29-61"><a href="graph-property-correlations.html#cb29-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste</span>(</span>
+<span id="cb29-62"><a href="graph-property-correlations.html#cb29-62" aria-hidden="true" tabindex="-1"></a>      plot_dir,</span>
+<span id="cb29-63"><a href="graph-property-correlations.html#cb29-63" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">&quot;t3_correlation_table_&quot;</span>, mat_type, <span class="st">&quot;.pdf&quot;</span>),</span>
+<span id="cb29-64"><a href="graph-property-correlations.html#cb29-64" aria-hidden="true" tabindex="-1"></a>      <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb29-65"><a href="graph-property-correlations.html#cb29-65" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-66"><a href="graph-property-correlations.html#cb29-66" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-67"><a href="graph-property-correlations.html#cb29-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-68"><a href="graph-property-correlations.html#cb29-68" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="distrubition-of-correlations-0.5-strength" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Distrubition of correlations &gt;= 0.5 strength<a href="graph-property-correlations.html#distrubition-of-correlations-0.5-strength" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="graph-property-correlations.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at distribution of correlations &gt;= 0.5 strength</span></span>
+<span id="cb30-2"><a href="graph-property-correlations.html#cb30-2" aria-hidden="true" tabindex="-1"></a>corr_str_thresh <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb30-3"><a href="graph-property-correlations.html#cb30-3" aria-hidden="true" tabindex="-1"></a>full_corr_thresh <span class="ot">&lt;-</span> full_corr <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="graph-property-correlations.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-5"><a href="graph-property-correlations.html#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">direction =</span> <span class="fu">case_when</span>(</span>
+<span id="cb30-6"><a href="graph-property-correlations.html#cb30-6" aria-hidden="true" tabindex="-1"></a>      estimate <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Negative&quot;</span>,</span>
+<span id="cb30-7"><a href="graph-property-correlations.html#cb30-7" aria-hidden="true" tabindex="-1"></a>      estimate <span class="sc">&gt;=</span> <span class="dv">0</span> <span class="sc">~</span> <span class="st">&quot;Positive&quot;</span></span>
+<span id="cb30-8"><a href="graph-property-correlations.html#cb30-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-9"><a href="graph-property-correlations.html#cb30-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="graph-property-correlations.html#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb30-11"><a href="graph-property-correlations.html#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">direction =</span> <span class="fu">as.factor</span>(direction)</span>
+<span id="cb30-12"><a href="graph-property-correlations.html#cb30-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb30-13"><a href="graph-property-correlations.html#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(abs_estimate <span class="sc">&gt;=</span> corr_str_thresh <span class="sc">&amp;</span> p.value.adj <span class="sc">&lt;=</span> <span class="fl">0.05</span>)</span>
+<span id="cb30-14"><a href="graph-property-correlations.html#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="graph-property-correlations.html#cb30-15" aria-hidden="true" tabindex="-1"></a>corr_counts <span class="ot">&lt;-</span> full_corr_thresh <span class="sc">%&gt;%</span></span>
+<span id="cb30-16"><a href="graph-property-correlations.html#cb30-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(graph_property, direction) <span class="sc">%&gt;%</span></span>
+<span id="cb30-17"><a href="graph-property-correlations.html#cb30-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(</span>
+<span id="cb30-18"><a href="graph-property-correlations.html#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>()</span>
+<span id="cb30-19"><a href="graph-property-correlations.html#cb30-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-20"><a href="graph-property-correlations.html#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-21"><a href="graph-property-correlations.html#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co"># If something has one direction, but not other, fill in 0 for other.</span></span>
+<span id="cb30-22"><a href="graph-property-correlations.html#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co"># For property in properties</span></span>
+<span id="cb30-23"><a href="graph-property-correlations.html#cb30-23" aria-hidden="true" tabindex="-1"></a>correlation_dirs_plot <span class="ot">&lt;-</span> corr_counts <span class="sc">%&gt;%</span></span>
+<span id="cb30-24"><a href="graph-property-correlations.html#cb30-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb30-25"><a href="graph-property-correlations.html#cb30-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb30-26"><a href="graph-property-correlations.html#cb30-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> graph_property,</span>
+<span id="cb30-27"><a href="graph-property-correlations.html#cb30-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> direction,</span>
+<span id="cb30-28"><a href="graph-property-correlations.html#cb30-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> n</span>
+<span id="cb30-29"><a href="graph-property-correlations.html#cb30-29" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-30"><a href="graph-property-correlations.html#cb30-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-31"><a href="graph-property-correlations.html#cb30-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>(), <span class="at">alpha =</span> <span class="fl">0.75</span>) <span class="sc">+</span></span>
+<span id="cb30-32"><a href="graph-property-correlations.html#cb30-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb30-33"><a href="graph-property-correlations.html#cb30-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-34"><a href="graph-property-correlations.html#cb30-34" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(</span>
+<span id="cb30-35"><a href="graph-property-correlations.html#cb30-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot =</span> correlation_dirs_plot,</span>
+<span id="cb30-36"><a href="graph-property-correlations.html#cb30-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">filename =</span> <span class="fu">paste</span>(</span>
+<span id="cb30-37"><a href="graph-property-correlations.html#cb30-37" aria-hidden="true" tabindex="-1"></a>    plot_dir,</span>
+<span id="cb30-38"><a href="graph-property-correlations.html#cb30-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;most_moderate_correlations.pdf&quot;</span>,</span>
+<span id="cb30-39"><a href="graph-property-correlations.html#cb30-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;/&quot;</span></span>
+<span id="cb30-40"><a href="graph-property-correlations.html#cb30-40" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-41"><a href="graph-property-correlations.html#cb30-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-42"><a href="graph-property-correlations.html#cb30-42" aria-hidden="true" tabindex="-1"></a>correlation_dirs_plot</span></code></pre></div>
+<p><img src="supplemental-material_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="community-transitionability-analyses.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/amlalejini/alife-2024-spatial-chem-eco/tree/main/../experiments/2024-03-08-varied-interaction-matrices/analysis/graph-properties.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["supplemental-material.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
