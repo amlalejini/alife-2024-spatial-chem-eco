@@ -14,6 +14,8 @@ description: "Supplemental material"
 
 ```{r, include=FALSE}
 bookdown_wd_prefix <- "../"
+bookdown_build <- TRUE
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
 # Introduction
@@ -40,8 +42,10 @@ Our supplemental material includes the following:
   (Section \@ref(graph-properties))
 - Summary of literature review on how different spatial structures affect evolutionary adaptation
   (Section \@ref(summary-of-spatial-structure-effects-on-evolutionary-adaptation))
-- TODO - transitionability score analysis
-- TODO - graph properties analysis
+- Transitionability score analyses
+  (Section \@ref(community-transitionability-analyses))
+- Graph properties correlation analyses
+  (Section \@ref(graph-property-correlations))
 
 ## Contributing authors
 

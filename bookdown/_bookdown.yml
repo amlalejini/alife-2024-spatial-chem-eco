@@ -5,5 +5,11 @@ language:
 delete_merged_file: true
 rmd_files: ["index.Rmd",
             "../docs/data-availability.md",
+            "../docs/local-compilation.md",
+            "../docs/graphs.md",
+            "../docs/graph-properties.md",
+            "../docs/spatial-structure-effects-lit-summary.md",
+            "../experiments/2024-03-08-varied-interaction-matrices/analysis/2024-03-08.Rmd",
+            "../experiments/2024-03-08-varied-interaction-matrices/analysis/graph-properties.Rmd",
             "tail.Rmd"
            ]
